@@ -6,23 +6,27 @@ const userSchema = new Schema(
     username: {
       type: String,
       trim: true,
-      required: false,
+      required: true,
       unique: true
     },
-    email: {
+    city: {
       type: String,
       required: true,
-      unique: true,
-      lowercase: true,
       trim: true
     },
     password: {
       type: String,
       required: true
+    },
+    favourites: {
+      type: [String],
+    },
+    is_admin: {
+      type: Boolean,
+      default: false
     }
   },
-  {
-    // this second object adds extra properties: `createdAt` and `updatedAt`    
+  {   
     timestamps: true
   }
 );
