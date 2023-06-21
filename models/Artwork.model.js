@@ -8,7 +8,7 @@ const artworkSchema = new Schema(
       required: true,
     },
     artist: {
-      type: String,
+      //type: Artist Schema object ID?
       required: true,
       unique: true,
       lowercase: true,
