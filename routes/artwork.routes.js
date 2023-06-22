@@ -20,3 +20,5 @@ router.post("/create-artwork", (req, res, next) => {
 router.get("/:artistId", (req, res, next) => {
 
 });
+
+module.exports = router;
