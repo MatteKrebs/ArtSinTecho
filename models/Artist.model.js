@@ -2,6 +2,7 @@ const mongoose = require ('mongoose');
 const Schema = mongoose.Schema;
 
 const artistSchema = new Schema({
+
     name: {
       type: String,
       trim: true,
@@ -32,7 +33,9 @@ const artistSchema = new Schema({
         type: String,
         required: false,
     },
+
     works: {
+      
         type: [String],
         required: true
     }
@@ -42,6 +45,11 @@ const artistSchema = new Schema({
   }
 );
 
+
 const Artist = mongoose.model('Artist', artistSchema);
 
 module.exports = Artist;
+
+
+
+// hi, test
