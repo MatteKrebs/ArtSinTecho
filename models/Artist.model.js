@@ -13,7 +13,7 @@ const artistSchema = new Schema({
         required: true,
         trim: true,
     },
-    art_type: {
+    artType: {
       type: String,
       required: true,
       trim: true,

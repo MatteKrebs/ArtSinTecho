@@ -20,7 +20,7 @@ const userSchema = new Schema({
     favourites: {
       type: [String],
     },
-    is_admin: {
+    isAdmin: {
       type: Boolean,
       default: false
     },

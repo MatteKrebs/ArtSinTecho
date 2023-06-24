@@ -1,10 +1,11 @@
-const { Schema, model } = require("mongoose");
+const mongoose = require ('mongoose');
+const Schema = mongoose.Schema;
 
 const artworkSchema = new Schema({
     imageURL: {
       type: Image,
       required: true,
-      default: 'ArtSinTecho/public/images/vecteezy_torn-note-paper-background-for-element-design_13443011_684.png'
+      default: './images/vecteezy_torn-note-paper-background-for-element-design_13443011_684.png'
     },
     title: {
       type: String,
