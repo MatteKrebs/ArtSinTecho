@@ -1,8 +1,8 @@
-const { Schema, model } = require("mongoose");
+const mongoose = require ('mongoose');
+const Schema = mongoose.Schema;
 
-// TODO: Please make sure you edit the User model to whatever makes sense in this case
-const artistSchema = new Schema(
-  {
+const artistSchema = new Schema({
+
     name: {
       type: String,
       trim: true,
@@ -33,7 +33,9 @@ const artistSchema = new Schema(
         type: String,
         required: false,
     },
-    work: {
+
+    works: {
+      
         type: [String],
         required: true
     }
@@ -43,6 +45,8 @@ const artistSchema = new Schema(
   }
 );
 
-const Artist = model("Artist", artistSchema);
+
+const Artist = mongoose.model('Artist', artistSchema);
 
 module.exports = Artist;
+
