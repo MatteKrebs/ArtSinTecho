@@ -25,9 +25,9 @@ const artistSchema = new Schema({
       required: true
     },
     pic: {
-        type: Image,
+        type: String,
         //  define the default pic with logo
-        default: 'https://static.vecteezy.com/system/resources/thumbnails/010/260/479/small/default-avatar-profile-icon-of-social-media-user-in-clipart-style-vector.jpg',
+        default: './images/vecteezy_user-profile-icon-profile-avatar-user-icon-male-icon_20911750_60.png',
     },
     links: {
         type: String,
@@ -37,7 +37,7 @@ const artistSchema = new Schema({
     works: {
       
         type: [String],
-        required: true
+        required: false
     }
   },
   {

@@ -1,0 +1,33 @@
+<h2>Create a new Artwork</h2>
+<form action="/artwork/create" method="POST">
+    <label>Artwork</label>
+    <input id="imageURL" type="text" name="imageURL"/>
+    <br>
+    <br>
+    <label>Title</label>
+    <input id="title" type="text" name="title"/>
+    <br>
+    <br>
+    <label>Artist</label>
+    <input id="artist" type="text" name="artist"/>
+    <br>
+    <br>
+    <label>History</label>
+    <input id="story" type="text" name="story"/>
+    <br>
+    <br>
+    <label>Mood</label>
+    <input id="mood" type="text" name="mood"/>
+    <select name="cast" id="cast" multiple>
+        <option value="abstract">Abstract</option> 
+        <option value="happy">happy</option> 
+        <option value="material">material</option>        
+    </select>
+    <br>
+    <br>
+    <label>Date</label>
+    <input id="dateOfCompletion" type="date" name="date"/>
+    <br>
+    <br>
+    <button type="submit">Add new Artist</button>
+</form>
