@@ -1,9 +1,17 @@
+
 // ℹ️ Gets access to environment variables/settings
 // https://www.npmjs.com/package/dotenv
 require("dotenv").config();
 
 // ℹ️ Connects to the database
 require("./db");
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb://127.0.0.1:27017/ArtSinTecho')
+    .then(() => console.log('Database good.'))
+    .catch(err => console.log(err));
+
+
 
 const express = require("express");
 const app = express();
