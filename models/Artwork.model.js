@@ -13,7 +13,7 @@ const artworkSchema = new Schema({
       required: true,
     },
     artist: {
-      type: String,
+      type: [{type: Schema.Types.ObjectId, ref: 'Artist'}],
       required: true,
       unique: true,
       lowercase: true,

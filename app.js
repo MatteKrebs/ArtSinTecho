@@ -35,7 +35,17 @@ app.locals.appTitle = `${capitalize(projectName)} created with IronLauncher`;
 const indexRoutes = require("./routes/index.routes");
 app.use("/", indexRoutes);
 
+// ITERATION 1
+// Import the route files
+const artistsRoutes = require('./routes/artist.routes')
+const artworkRoutes = require('./routes/artwork.routes');
 
+// Link the route files to the main router
+app.use('/', artistsRoutes);
+app.use('/', artworkRoutes);
+
+
+// ITERATION 1(END)
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
