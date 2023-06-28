@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const artworkSchema = new Schema({
     imageURL: {
-      type: Image,
+      type: String,
       required: true,
       default: './images/vecteezy_torn-note-paper-background-for-element-design_13443011_684.png'
     },

@@ -8,8 +8,12 @@
     <input id="title" type="text" name="title"/>
     <br>
     <br>
-    <label>Artist</label>
-    <input id="artist" type="text" name="artist"/>
+    <label for="artists">Artists</label>
+    <select name="artists" id="artists" multiple>
+        {{#each artists}}
+            <option value="{{_id}}">{{name}}</option>
+        {{/each}}
+    </select>
     <br>
     <br>
     <label>History</label>
@@ -17,11 +21,11 @@
     <br>
     <br>
     <label>Mood</label>
-    <input id="mood" type="text" name="mood"/>
-    <select name="cast" id="cast" multiple>
-        <option value="abstract">Abstract</option> 
+    <select name="mood" id="mood" multiple>
+        <option value="abstract">abstract</option> 
         <option value="happy">happy</option> 
-        <option value="material">material</option>        
+        <option value="material">material</option>  
+        <option value="other">other</option>       
     </select>
     <br>
     <br>
@@ -29,5 +33,5 @@
     <input id="dateOfCompletion" type="date" name="date"/>
     <br>
     <br>
-    <button type="submit">Add new Artist</button>
+    <button type="submit">Add new Artwork</button>
 </form>

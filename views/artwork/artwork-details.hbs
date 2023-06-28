@@ -1,0 +1,39 @@
+
+<h3>Artwork Details</h3>
+<br>
+<br>
+<br>
+
+    <h1>{{artwork.title}}</h1>
+    <br>
+    {{artwork.story}}
+    <br>
+    <br>
+    {{artwork.mood}}
+    <br>
+    <br>   
+    <br>
+    <h5>Artist:</h5>
+    <br>
+    {{#each artwork.artist}}
+    <label>Name:</label>
+        {{name}}
+        <br>
+    <label>City:</label>
+        {{city}}
+        <br>
+    <label>Description:</label>
+        {{description}}
+        <br>
+        <br>
+    {{/each}}
+    <br>
+
+
+<form action="/artwork/{{artwork._id}}/edit" method="GET">
+     <button type="submit">Edit Artwork</button>
+</form>
+<br>
+<form action="/artwork/{{artwork._id}}/delete" method="POST">
+     <button type="submit">Delete Artwork</button>
+</form>
