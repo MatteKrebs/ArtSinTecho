@@ -38,10 +38,13 @@ router.post("/artwork/create", (req, res, next) => {
     // Save the new artwork to the database
     newArtwork
         .save()
-        .then(
+        .then((createdArtwork) => {
+            const {_id} = createdArtwork;
+            return Artist.findByIdAndUpdate(artist, {$push:{works:_id}})
             // Redirect to the artist page after successful creation
-            res.redirect('/artwork')
+        }   
         )
+        .then (()=> res.redirect("/artwork"))
         .catch(err => {
             // Handle the error and render the new-artist view again
             res.render('artwork/artwork-create', 
@@ -91,9 +94,16 @@ router.get("/artwork/:id", (req, res, next) => {
 router.post('/artwork/:id/delete', (req,res) => {
 
     const artworkId = req.params.id;
+    const {artist} = req.body;
+
 
     Artwork.findByIdAndRemove(artworkId)
-        .then (res.redirect('/artwork'))
+        .then((deletedArtwork)=> {
+            const {_id} = deletedArtwork;
+    
+            return Artist.findByIdAndUpdate(artist, {$pull:{works:_id}})}
+        )
+        .then (() => res.redirect('/artwork'))
         .catch((error) => {
         console.log("error deleting artwork", error);
         res.render('error');
@@ -102,8 +112,7 @@ router.post('/artwork/:id/delete', (req,res) => {
 
 
 
-
-// Get: Editing Movie
+// Get: Editing Artwork
 
 router.get('/artwork/:id/edit', (req,res) => {
 
@@ -127,7 +136,7 @@ router.get('/artwork/:id/edit', (req,res) => {
         });
 });
 
-// Post: Editing Movie
+// Post: Editing Artwork
 
 router.post('/artwork/:id', (req,res) => {
 

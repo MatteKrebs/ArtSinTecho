@@ -22,9 +22,8 @@ const artistSchema = new Schema({
         //  define the default pic with logo
         default: './images/vecteezy_user-profile-icon-profile-avatar-user-icon-male-icon_20911750_60.png',
     },
-    works: {
-        type: [String]
-    }
+    works:
+      [{type: Schema.Types.ObjectId, ref: 'Artwork'}]
   },
   {
     timestamps: true
