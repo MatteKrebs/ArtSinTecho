@@ -3,42 +3,43 @@
 <br>
 <br>
 <br>
-
-    {{artwork.pic}}  
-    <h1>{{artist.name}}</h1>
+    {{artist.pic}}
+    <h2>{{artist.name}}</h2>
     <br>
-    {{artwork.city}}
+    {{artist.city}}
     <br>
     <br>
-    {{artwork.artType}}
-    <br>
-    <br> 
-    {{artwork.description}}  
+    {{artist.artType}}
     <br>
     <br> 
-    {{artwork.works}}
+    {{artist.description}}  
     <br>
     <br> 
-    {{artwork.links}}
+    {{artist.works}}
     <br>
     <br> 
     <h5>Artist:</h5>
     <br>
-    {{#each artwork.artist}}
-        {{imageURL}}
+    {{!-- {{#each artwork}}
+        {{artwork.artist.imageURL}}
         {{title}}
     <label>Description:</label>
         {{description}}
         <br>
         <br>
-    {{/each}}
+    {{/each}} --}}
+
+
+    {{!-- Here we should display all the artwork only from this artist!
+    Should we use an if statement. And the same goes, if you delete an artist, it automatically should 
+    delete all of his artwork... and get a warning for that! --}}
     <br>
 
 
-<form action="/artist/{{artist._id}}/edit" method="GET">
+<form action="/artists/{{artist._id}}/edit" method="GET">
      <button type="submit">Edit Artist</button>
 </form>
 <br>
-<form action="/artist/{{artist._id}}/delete" method="POST">
+<form action="/artists/{{artist._id}}/delete" method="POST">
      <button type="submit">Delete Artist</button>
 </form>
