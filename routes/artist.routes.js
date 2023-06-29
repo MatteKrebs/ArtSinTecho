@@ -64,9 +64,12 @@ router.get("/artists/:id", (req, res, next) => {
     const artistId = req.params.id;
 
     Artist.findById(artistId)
+        .populate("works")
         .then((artist) => {
+            console.log(artist)
             res.render('artists/artist-details', {artist});
         })
+        
         .catch((error) => {
         console.log("error fetching artwork", error);
         res.render('error');
@@ -75,19 +78,63 @@ router.get("/artists/:id", (req, res, next) => {
 
 
 
+ /////// WE HAVE TO WORK ON THIS NEXT ROUTE
+ //Should be able to delete all of the artwork, and then, 
+ //delete the artist of those artworks
 //Post: Delete artist
 
 router.post('/artists/:id/delete', (req,res) => {
 
+   // const artworkId = req.params.id;
     const artistId = req.params.id;
+    const {works} = req.body;
 
-    Artist.findByIdAndRemove(artistId)
-        .then (res.redirect('/artists'))
+
+    Artwork.findByIdAndRemove(artistId)
+        .then((deletedArtwork)=> {
+            const {_id} = deletedArtwork;
+
+            return Artist.findByIdAndUpdate(works, {$pull:{works:_id}})}
+        )
+        .then(()=>{
+            Artist.findByIdAndRemove(artistId)
+
+            .then (()=>res.redirect('/artists'))
+            .catch((error) => {
+            console.log("error deleting artist", error);
+            res.render('error');
+            });
+        })
+        .then (() => res.redirect('/artwork'))
         .catch((error) => {
-        console.log("error deleting artist", error);
+        console.log("error deleting artwork", error);
         res.render('error');
         });
+    
 })
+
+
+// router.post('/artwork/:id/delete', (req,res) => {
+
+//     const artworkId = req.params.id;
+//     const {artist} = req.body;
+
+
+//     Artwork.findByIdAndRemove(artworkId)
+//         .then((deletedArtwork)=> {
+//             const {_id} = deletedArtwork;
+    
+//             return Artist.findByIdAndUpdate(artist, {$pull:{works:_id}})}
+//         )
+//         .then (() => res.redirect('/artwork'))
+//         .catch((error) => {
+//         console.log("error deleting artwork", error);
+//         res.render('error');
+//         });
+// })
+
+
+
 
 
 
@@ -114,6 +161,8 @@ router.get('/artists/:id/edit', (req,res) => {
             res.render('error');
         });
 });
+
+
 
 // Post: Editing Artist
 

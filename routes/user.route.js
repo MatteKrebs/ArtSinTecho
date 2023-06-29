@@ -2,12 +2,12 @@ const express = require('express');
 const router = express.Router();
 
 
-//Get: Create new artist
+//Get: Create new login
 router.get("/:userId", (req, res, next) => {
 
 });
 
-//Post: Create new artist
+//Post: Create new logout
 router.post("/:userId", (req, res, next) => {
 
 });

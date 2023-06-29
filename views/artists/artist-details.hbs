@@ -14,25 +14,14 @@
     <br> 
     {{artist.description}}  
     <br>
-    <br> 
-    {{artist.works}}
     <br>
     <br> 
-    <h5>Artist:</h5>
+    <h5>Artwork from this Artist:</h5>
     <br>
-    {{!-- {{#each artwork}}
-        {{artwork.artist.imageURL}}
-        {{title}}
-    <label>Description:</label>
-        {{description}}
-        <br>
-        <br>
-    {{/each}} --}}
+         {{#each artist.works}}
+            <option value="{{_id}}">{{title}}</option>
+        {{/each}}
 
-
-    {{!-- Here we should display all the artwork only from this artist!
-    Should we use an if statement. And the same goes, if you delete an artist, it automatically should 
-    delete all of his artwork... and get a warning for that! --}}
     <br>
 
 
