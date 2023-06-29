@@ -50,10 +50,13 @@ router.post("/artwork/create", (req, res, next) => {
 });
 
 
+
+
 //GET: Display all artwork
 router.get('/artwork', (req, res) => {
 
     Artwork.find()
+        .populate('artist')
         .then((artworks)=>{
             res.render('artwork/artwork', {artworks});
         })
@@ -62,12 +65,11 @@ router.get('/artwork', (req, res) => {
 
 
 
-
  
 //Get: Display single artwork
-router.get("/artwork/:artworkId", (req, res, next) => {
+router.get("/artwork/:id", (req, res, next) => {
 
-    const artworkId = req.params.artworkId;
+    const artworkId = req.params.id;
 
     Artwork.findById(artworkId)
         .populate('artist')
@@ -90,7 +92,7 @@ router.post('/artwork/:id/delete', (req,res) => {
 
     const artworkId = req.params.id;
 
-    Movie.findByIdAndRemove(artworkId)
+    Artwork.findByIdAndRemove(artworkId)
         .then (res.redirect('/artwork'))
         .catch((error) => {
         console.log("error deleting artwork", error);
