@@ -1,14 +1,33 @@
 
-
 <br>
 {{#each artworks}}
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     {{imageURL}}
+    <h2>{{title}}</h2>
+    <br>
+    {{story}}
     <br>
     <br>
-    {{title}}
+    {{mood}}
     <br>
     <br>
-    {{artist}}
+    <h5>Artist:</h5>
     <br>
+    <label>Name:</label>
+        {{artist.name}}
+        <br>
+    <label>City:</label>
+        {{artist.city}}
+        <br>
+    <label>Description:</label>
+        {{artist.description}}
+        <br>
+        <br>
     <a href="/artwork/{{id}}">More Details</a>
 {{/each}}
+
+

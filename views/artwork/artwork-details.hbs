@@ -11,22 +11,20 @@
     <br>
     {{artwork.mood}}
     <br>
-    <br>   
+    <br> 
     <br>
     <h5>Artist:</h5>
     <br>
-    {{#each artwork.artist}}
     <label>Name:</label>
-        {{name}}
+        {{artwork.artist.name}}
         <br>
     <label>City:</label>
-        {{city}}
+        {{artwork.artist.city}}
         <br>
     <label>Description:</label>
-        {{description}}
+        {{artwork.artist.description}}
         <br>
         <br>
-    {{/each}}
     <br>
 
 
