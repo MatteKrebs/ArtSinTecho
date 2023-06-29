@@ -4,6 +4,7 @@ const router = express.Router();
 
 
 const Artist = require('../models/Artist.model');
+const Artwork = require('../models/Artwork.model');
 
 
 //Get: Create new artist
@@ -58,10 +59,10 @@ router.get('/artists', (req,res) => {
 // ITERATION 4 (END)
 
 
-//Get: Display single artist
-router.get("/:artistId", (req, res, next) => {
+// //Get: Display single artist
+// router.get("/artists/:artistId", (req, res, next) => {
 
-});
+// });
 
 
 

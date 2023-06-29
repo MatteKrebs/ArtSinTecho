@@ -2,22 +2,31 @@ const express = require('express');
 const router = express.Router();
 
 
-const Artwork = require('../models/Artist.model');
+const Artwork = require('../models/Artwork.model');
+const Artist = require('../models/Artist.model');
 
 
 
 //Get: Create new artwork
 router.get("/artwork/create", (req, res, next) => {
-    res.render ('artwork/artwork-create');
+    Artist.find()
+        .then((artists) => {
+            res.render('artwork/artwork-create', {artists});
+            console.log(artists);
+        })
+        .catch((error) => {
+            console.log(error);
+            res.redirect('/artwork');
+        });
 });
 
 //Post: Create new artwork
 router.post("/artwork/create", (req, res, next) => {
 
     const {imageURL, title, artist, story, mood, dateOfCompletion} = req.body;
-
-    // Create a new artist using the provided data
-    const newArtwork = new Artwork ({
+    
+    // Create a new artwork using the provided data
+    const newArtwork = new Artwork({
         imageURL: imageURL, 
         title: title, 
         artist: artist, 
@@ -26,35 +35,113 @@ router.post("/artwork/create", (req, res, next) => {
         dateOfCompletion: dateOfCompletion
     });
 
-    // Save the new artist to the database
+    // Save the new artwork to the database
     newArtwork
         .save()
-        .then (artwork => 
+        .then(
             // Redirect to the artist page after successful creation
-            res.redirect('/artists')
+            res.redirect('/artwork')
         )
-        .catch(error => {
+        .catch(err => {
             // Handle the error and render the new-artist view again
-            res.render('/artists/artists-create', 
+            res.render('artwork/artwork-create', 
             { error: "please, try again to insert a new artist" });
+        });
+});
+
+
+//GET: Display all artwork
+router.get('/artwork', (req, res) => {
+
+    Artwork.find()
+        .then((artworks)=>{
+            res.render('artwork/artwork', {artworks});
+        })
+        .catch(() => console.log("error fetching artworks"))
+});
+
+
+
+
+ 
+//Get: Display single artwork
+router.get("/artwork/:artworkId", (req, res, next) => {
+
+    const artworkId = req.params.artworkId;
+
+    Artwork.findById(artworkId)
+        .populate('artist')
+        .then((artwork) => {
+            res.render('artwork/artwork-details', {artwork});
+            console.log(artwork.artist)
+        })
+        .catch((error) => {
+        console.log("error fetching artwork", error);
+        res.render('error');
         });
 });
 
 
 
 
-//Get: Display single artwork
-router.get("/:artworkId", (req, res, next) => {
+//Post: Delete Artwork
 
+router.post('/artwork/:id/delete', (req,res) => {
+
+    const artworkId = req.params.id;
+
+    Movie.findByIdAndRemove(artworkId)
+        .then (res.redirect('/artwork'))
+        .catch((error) => {
+        console.log("error deleting artwork", error);
+        res.render('error');
+        });
+})
+
+
+
+
+// Get: Editing Movie
+
+router.get('/artwork/:id/edit', (req,res) => {
+
+    const artworkId = req.params.id;
+
+    Artwork.findById(artworkId)
+        .populate('artist')
+        .then ((artwork)=> {
+            Artist.find()
+                .then((artists) => {
+                    res.render('./artwork/artwork-edit', {artwork, artists});
+                })
+                .catch((error) => {
+                    console.log("error rendering artwork", error);
+                    res.render('error');
+                });
+        })
+        .catch ((error) => {
+            console.log("error fetching movie", error);
+            res.render('error');
+        });
 });
 
+// Post: Editing Movie
+
+router.post('/artwork/:id', (req,res) => {
+
+    const artworkId = req.params.id;
+    const {imageURL, title, artist, story, mood, dateOfCompletion} = req.body;
+
+    Artwork.findByIdAndUpdate(artworkId, {imageURL, title, artist, story, mood, dateOfCompletion})
+        .then (()=> 
+            res.redirect(`/artwork/${artworkId}`))
+        .catch((error) => {
+        console.log("error editing artwork", error);
+        res.render('error');
+        });
+})
 
 
 
-
-//GET: Display all artwork
-router.get("/artwork", (req, res, next) => {
-
-});
 
 module.exports = router;
