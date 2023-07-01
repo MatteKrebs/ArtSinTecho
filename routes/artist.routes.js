@@ -1,11 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-
-
 const Artist = require('../models/Artist.model');
 const Artwork = require('../models/Artwork.model');
 
+const fileUploader = require('../config/cloudinary.config');
 
 //Get: Create new artist
 router.get("/artists/create", (req, res, next) => {
@@ -23,7 +22,7 @@ router.post("/artists/create", (req, res, next) => {
         city: city, 
         artType: artType, 
         description: description, 
-        pic: pic, 
+        pic: 'ArtistPic', 
         links: links, 
         works: works
     });
@@ -37,7 +36,7 @@ router.post("/artists/create", (req, res, next) => {
         )
         .catch(error => {
             // Handle the error and render the new-artist view again
-            res.render('/artists/artists-create', 
+            res.render('./artists/artists-create', 
             { error: "please, try again to insert a new artist" });
         });
 });
