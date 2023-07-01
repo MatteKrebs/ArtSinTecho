@@ -12,7 +12,9 @@ const storage = new CloudinaryStorage({
   // cloudinary: cloudinary,
   cloudinary,
   params: {
+
     allowed_formats: ['jpg', 'png', 'jpeg', 'gif'],
+
     folder: 'artsintecho' // The name of the folder in cloudinary
     // resource_type: 'raw' => this is in case you want to upload other type of files, not just images
   }
@@ -20,3 +22,4 @@ const storage = new CloudinaryStorage({
  
 //                     storage: storage
 module.exports = multer({ storage });
+
