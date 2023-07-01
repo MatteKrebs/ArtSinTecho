@@ -1,5 +1,5 @@
 <h2>Create a new Artist</h2>
-<form action="/artists/create" method="POST">
+<form action="/artists/create" method="POST" enctype="multipart/form-data">
     <label>Name</label>
     <input id="name" type="text" name="name"/>
     <br>
@@ -17,7 +17,7 @@
     <br>
     <br>
     <label>Picture</label>
-    <input id="pic" type="file" name="pic"/>
+    <input id="pic" type="file" name="ArtistPic"/>
     <br>
     <br>
     <button type="submit">Add new Artist</button>

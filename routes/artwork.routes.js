@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-
 const Artwork = require('../models/Artwork.model');
 const Artist = require('../models/Artist.model');
 
+const fileUploader = require('../config/cloudinary.config');
 
 
 //Get: Create new artwork
@@ -20,37 +20,56 @@ router.get("/artwork/create", (req, res, next) => {
         });
 });
 
-//Post: Create new artwork
-router.post("/artwork/create", (req, res, next) => {
+router.post("/artwork/create", fileUploader.single('imageURL'), (req, res, next) => {
 
-    const {imageURL, title, artist, story, mood, dateOfCompletion} = req.body;
-    
-    // Create a new artwork using the provided data
-    const newArtwork = new Artwork({
-        imageURL: imageURL, 
-        title: title, 
-        artist: artist, 
-        story: story, 
-        mood: mood, 
-        dateOfCompletion: dateOfCompletion
-    });
+    const {title, artist, story, mood, dateOfCompletion} = req.body;
 
-    // Save the new artwork to the database
-    newArtwork
-        .save()
-        .then((createdArtwork) => {
-            const {_id} = createdArtwork;
-            return Artist.findByIdAndUpdate(artist, {$push:{works:_id}})
-            // Redirect to the artist page after successful creation
-        }   
-        )
-        .then (()=> res.redirect("/artwork"))
-        .catch(err => {
-            // Handle the error and render the new-artist view again
-            res.render('artwork/artwork-create', 
-            { error: "please, try again to insert a new artist" });
-        });
+    Artwork.create({ title, artist, story, mood, dateOfCompletion, imageUrl: req.file.path })
+    .then((newArt) => {
+      console.log(newArt);
+
+    console.log('req.file', req.file);
+    console.log('req.body', req.body);
+
+
+      res.redirect("/artwork"); 
+    })
+    .catch((error) => console.log('Error while creating a new movie: ${error}'));
 });
+
+
+
+// //Post: Create new artwork
+// router.post("/artwork/create", (req, res, next) => {
+
+//     const {imageURL, title, artist, story, mood, dateOfCompletion} = req.body;
+    
+//     // Create a new artwork using the provided data
+//     const newArtwork = new Artwork({
+//         imageURL: imageURL, 
+//         title: title, 
+//         artist: artist, 
+//         story: story, 
+//         mood: mood, 
+//         dateOfCompletion: dateOfCompletion
+//     });
+
+//     // Save the new artwork to the database
+//     newArtwork
+//         .save()
+//         .then((createdArtwork) => {
+//             const {_id} = createdArtwork;
+//             return Artist.findByIdAndUpdate(artist, {$push:{works:_id}})
+//             // Redirect to the artist page after successful creation
+//         }   
+//         )
+//         .then (()=> res.redirect("/artwork"))
+//         .catch(err => {
+//             // Handle the error and render the new-artist view again
+//             res.render('artwork/artwork-create', 
+//             { error: "please, try again to insert a new artist" });
+//         });
+// });
 
 
 
