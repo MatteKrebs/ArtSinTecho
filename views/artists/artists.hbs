@@ -1,1 +1,13 @@
 <h1>Artists</h1>
+<br>
+{{#each artists}}
+    {{pic}}
+    <br>
+   {{name}}
+    <br>
+    {{city}}
+    <br>
+    <br>
+    <a href="/artists/{{id}}">More Details</a>
+{{/each}}
+

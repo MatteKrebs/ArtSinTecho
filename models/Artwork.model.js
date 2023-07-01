@@ -3,34 +3,26 @@ const Schema = mongoose.Schema;
 
 const artworkSchema = new Schema({
     imageURL: {
-      type: Image,
-      required: true,
-      default: './images/vecteezy_torn-note-paper-background-for-element-design_13443011_684.png'
+      type: String,
+      required: false,
+      // default: './images/vecteezy_torn-note-paper-background-for-element-design_13443011_684.png'
     },
     title: {
       type: String,
-      trim: true,
       required: true,
+      default: 'Untitled'
     },
-    artist: {
-      type: String,
-      required: true,
-      unique: true,
-      lowercase: true,
-      trim: true
-    },
+    artist: 
+      {type: Schema.Types.ObjectId, ref: 'Artist'}
+    ,
     story: {
-      type: String,
-      required: false,
+      type: String
     },
     mood: {
-        type: [String],
-        required: false,
-        lowercase: true,
+        type: [String]
       },  
     dateOfCompletion: {
-      type: Date,
-      required: false
+      type: Date
     }
   },
   {

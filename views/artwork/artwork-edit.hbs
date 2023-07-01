@@ -1,0 +1,26 @@
+<h2>Edit Artwork</h2>
+
+<form action="/artwork/{{artwork._id}}" method="POST">
+    <input id="imageURL" type="image" name="imageURL"/>
+    <br>
+    <label>Title</label>
+    <input id="title" type="text" name="title"/>
+    <br>
+    <label>Story</label>
+    <input id="story" type="text" name="story"/>
+    <br>
+    <label>Mood</label>
+    <input id="mood" type="text" name="mood"/>
+    <br>
+    <label>Date of Completion</label>
+    <input id="date" type="date" name="date"/>
+    <br>
+    <label for="artist">Artist:</label>
+    <select name="artist" id="artist" multiple>
+        {{#each artists}}
+            <option value="{{_id}}">{{name}}</option>        
+        {{/each}}
+    </select>
+    <br>
+    <button type="submit">Edit Artwork</button>
+</form>

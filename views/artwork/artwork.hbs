@@ -1,5 +1,33 @@
-<h1>Current Available Pieces</h1>
 
-!--for each look from hbs--! 
+<br>
+{{#each artworks}}
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    {{imageURL}}
+    <h2>{{title}}</h2>
+    <br>
+    {{story}}
+    <br>
+    <br>
+    {{mood}}
+    <br>
+    <br>
+    <h5>Artist:</h5>
+    <br>
+    <label>Name:</label>
+        {{artist.name}}
+        <br>
+    <label>City:</label>
+        {{artist.city}}
+        <br>
+    <label>Description:</label>
+        {{artist.description}}
+        <br>
+        <br>
+    <a href="/artwork/{{id}}">More Details</a>
+{{/each}}
 
-<h1>Previous Artwork</h1>
+

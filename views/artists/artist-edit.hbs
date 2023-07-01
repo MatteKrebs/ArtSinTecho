@@ -1,5 +1,9 @@
-<h2>Create a new Artist</h2>
-<form action="/artists/create" method="POST">
+<h2>Edit Artist</h2>
+
+<form action="/artists/{{artist._id}}" method="POST">
+    <input id="pic" type="pic" name="pic"/>
+    <br>
+    <br>
     <label>Name</label>
     <input id="name" type="text" name="name"/>
     <br>
@@ -8,7 +12,7 @@
     <input id="city" type="text" name="city"/>
     <br>
     <br>
-    <label>Type of Art</label>
+    <label>Art Type</label>
     <input id="artType" type="text" name="artType"/>
     <br>
     <br>
@@ -16,9 +20,9 @@
     <input id="description" type="text" name="description"/>
     <br>
     <br>
-    <label>Picture</label>
-    <input id="pic" type="file" name="pic"/>
+    <label>Works</label>
+    <input id="works" type="text" name="works"/>
     <br>
     <br>
-    <button type="submit">Add new Artist</button>
+    <button type="submit">Edit Artist</button>
 </form>

@@ -1,0 +1,38 @@
+<h2>Create a new Artwork</h2>
+<form action="/artwork/create" method="POST">
+    <label>Title</label>
+    <input id="title" type="text" name="title"/>
+    <br>
+    <br>
+     <label>Artwork Picture</label>
+    <input id="imageURL" type="file" name="imageURL"/>
+    <br>
+    <br>
+    <label for="artists">Artists</label>
+    <select name="artist" id="artist" multiple>
+        {{#each artists}}
+            <option value="{{_id}}">{{name}}</option>
+        {{/each}}
+    </select>
+    <a href="/artists/create">If this is your first artwork, click here</a>
+    <br>
+    <br>
+    <label>History</label>
+    <input id="story" type="text" name="story"/>
+    <br>
+    <br>
+    <label>Mood</label>
+    <select name="mood" id="mood" multiple>
+        <option value="abstract">abstract</option> 
+        <option value="happy">happy</option> 
+        <option value="material">material</option>  
+        <option value="other">other</option>       
+    </select>
+    <br>
+    <br>
+    <label>Date Of Completion</label>
+    <input id="dateOfCompletion" type="date" name="date"/>
+    <br>
+    <br>
+    <button type="submit">Add new Artwork</button>
+</form>
