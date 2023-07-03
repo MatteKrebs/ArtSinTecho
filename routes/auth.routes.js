@@ -81,4 +81,14 @@ router.get("/profile/:username", (req, res, next) => {
 
 });
 
+
+
+router.post('/logout', (req , res) =>{
+  req.session.destroy(err => {
+    if (err) next(err);
+    res.redirect('/');
+  })
+})
+
+
 module.exports = router;
