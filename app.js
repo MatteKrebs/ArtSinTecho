@@ -44,7 +44,7 @@ const authRoutes = require("./routes/auth.routes");
 // Link the route files to the main router
 app.use('/', artistsRoutes);
 app.use('/', artworkRoutes);
-app.use('/auth', authRoutes)
+app.use('/auth', authRoutes);
 
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
