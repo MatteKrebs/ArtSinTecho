@@ -11,35 +11,53 @@ router.get("/artists/create", (req, res, next) => {
     res.render ('artists/artists-create');
 });
 
-//Post: Create new artist
-router.post("/artists/create", (req, res, next) => {
 
-    const {name, city, artType, description, pic, links, works} = req.body;
+//Post: Create New Artist
+router.post("/artist/create", fileUploader.single('ArtistPic'), (req, res, next) => {
 
-    // Create a new artist using the provided data
-    const newArtist = new Artist ({
-        name: name, 
-        city: city, 
-        artType: artType, 
-        description: description, 
-        pic: 'ArtistPic', 
-        links: links, 
-        works: works
-    });
+    const {name, city, artType, description, links, works} = req.body;
 
-    // Save the new artist to the database
-    newArtist
-        .save()
-        .then (artist => 
-            // Redirect to the artist page after successful creation
-            res.redirect('/artists')
-        )
-        .catch(error => {
-            // Handle the error and render the new-artist view again
-            res.render('./artists/artists-create', 
-            { error: "please, try again to insert a new artist" });
-        });
-});
+Artist.create({name, city, artType, description, works, pic: 'ArtistPic'})
+.then((newArtist) => {
+  console.log(newArtist);
+
+    console.log('req.file', req.file);
+    console.log('req.body', req.body);
+
+  res.redirect("/artist/:id"); 
+})
+.catch((error) => console.log('Error while creating a new movie: ${error}'));
+})
+
+// OLD POST ROUTE: Create new artist
+// router.post("/artists/create", (req, res, next) => {
+
+//     const {name, city, artType, description, pic, links, works} = req.body;
+
+//     // Create a new artist using the provided data
+//     const newArtist = new Artist ({
+//         name: name, 
+//         city: city, 
+//         artType: artType, 
+//         description: description, 
+//         pic: 'ArtistPic', 
+//         links: links, 
+//         works: works
+//     });
+
+//     // Save the new artist to the database
+//     newArtist
+//         .save()
+//         .then (artist => 
+//             // Redirect to the artist page after successful creation
+//             res.redirect('/artists')
+//         )
+//         .catch(error => {
+//             // Handle the error and render the new-artist view again
+//             res.render('./artists/artists-create', 
+//             { error: "please, try again to insert a new artist" });
+//         });
+// });
 
 
 
@@ -170,7 +188,7 @@ router.post('/artists/:id', (req,res) => {
     const artistId = req.params.id;
     const {name, city, artType, description, pic, works} = req.body;
 
-    Artwork.findByIdAndUpdate(artistId, {name, city, artType, description, pic, links, works})
+    Artwork.findByIdAndUpdate(artistId, {name, city, artType, description, pic, works})
         .then (()=> 
             res.redirect(`/artists/${artistId}`))
         .catch((error) => {
