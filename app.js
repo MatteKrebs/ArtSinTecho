@@ -7,11 +7,9 @@ require("dotenv").config();
 require("./db");
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://127.0.0.1:27017/ArtSinTecho')
-    .then(() => console.log('Database good.'))
-    .catch(err => console.log(err));
-
-
+// mongoose.connect('mongodb://127.0.0.1:27017/ArtSinTecho')
+//     .then(() => console.log('Database good.'))
+//     .catch(err => console.log(err));
 
 const express = require("express");
 const app = express();
@@ -24,6 +22,7 @@ app.use(express.static('public'));
 
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);
+require("./config/session.config.js")(app);
 
 // default value for title local
 const capitalize = require("./utils/capitalize");
