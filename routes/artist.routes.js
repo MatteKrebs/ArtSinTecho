@@ -7,59 +7,66 @@ const Artwork = require('../models/Artwork.model');
 
 //const fileUploader = require('../config/cloudinary.config');
 
+const {isLoggedIn, isLoggedOut, isAdmin} = require('../middleware/route-guard')
+
+
 //Get: Create new artist
-router.get("/artists/create", (req, res, next) => {
-    res.render ('artists/artists-create');
+router.get("/artists/create", isAdmin, (req, res, next) => {
+    res.render ('artists/artists-create', {isAdmin: true});
 });
 
 //VIV POST REQUEST
-// //Post: Create new artist
-// router.post("/artists/create", (req, res, next) => {
+//Post: Create new artist
+router.post("/artists/create", isAdmin, (req, res, next) => {
 
-//     const {name, city, artType, description, pic, links, works} = req.body;
+    const {name, city, artType, description, pic, links, works} = req.body;
 
-//     // Create a new artist using the provided data
-//     const newArtist = new Artist ({
-//         name: name, 
-//         city: city, 
-//         artType: artType, 
-//         description: description, 
-//         pic: pic, 
-//         links: links, 
-//         works: works
-//     });
+    // Create a new artist using the provided data
+    const newArtist = new Artist ({
+        name: name, 
+        city: city, 
+        artType: artType, 
+        description: description, 
+        pic: pic, 
+        links: links, 
+        works: works
+    });
 
-//     // Save the new artist to the database
-//     newArtist
-//         .save()
-//         .then (artist => 
-//             // Redirect to the artist page after successful creation
-//             res.redirect('/artists')
-//         )
-//         .catch(error => {
-//             // Handle the error and render the new-artist view again
-//             res.render('./artists/artists-create', 
-//             { error: "please, try again to insert a new artist" });
-//         });
-// });
+    // Save the new artist to the database
+    newArtist
+        .save()
+        .then (artist => 
+            // Redirect to the artist page after successful creation
+            res.redirect('/artists')
+        )
+        .catch(error => {
+            // Handle the error and render the new-artist view again
+            res.render('./artists/artists-create', 
+            { error: "please, try again to insert a new artist" });
+        });
+});
 
 
-//Post: Create New Artist
-router.post("/artist/create", fileUploader.single('ArtistPic'), (req, res, next) => {
+// Matt Post route not working
 
-    const {name, city, artType, description, links, works} = req.body;
+// //Post: Create New Artist
+// router.post("/artist/create", fileUploader.single('ArtistPic'), (req, res, next) => {
 
-Artist.create({name, city, artType, description, works, pic: 'ArtistPic'})
-.then((newArtist) => {
-  console.log(newArtist);
+//     const {name, city, artType, description, links, works} = req.body;
 
-    console.log('req.file', req.file);
-    console.log('req.body', req.body);
+// Artist.create({name, city, artType, description, works, pic: 'ArtistPic'})
+// .then((newArtist) => {
+//   console.log(newArtist);
 
-  res.redirect("/artist/:id"); 
-})
-.catch((error) => console.log('Error while creating a new movie: ${error}'));
-})
+//     console.log('req.file', req.file);
+//     console.log('req.body', req.body);
+
+//   res.redirect("/artist/:id"); 
+// })
+// .catch((error) => console.log('Error while creating a new movie: ${error}'));
+// })
+
+
 
 // OLD POST ROUTE: Create new artist
 // router.post("/artists/create", (req, res, next) => {
@@ -127,13 +134,12 @@ router.get("/artists/:id", (req, res, next) => {
 });
 
 
-
  /////// WE HAVE TO WORK ON THIS NEXT ROUTE
  //Should be able to delete all of the artwork, and then, 
  //delete the artist of those artworks
 //Post: Delete artist
 
-router.post('/artists/:id/delete', (req,res) => {
+router.post('/artists/:id/delete', isAdmin,  (req,res) => {
 
    // const artworkId = req.params.id;
     const artistId = req.params.id;
@@ -191,7 +197,7 @@ router.post('/artists/:id/delete', (req,res) => {
 
 // Get: Editing Artist
 
-router.get('/artists/:id/edit', (req,res) => {
+router.get('/artists/:id/edit', isLoggedIn, isAdmin, (req,res) => {
 
     const artistId = req.params.id;
 
@@ -216,7 +222,7 @@ router.get('/artists/:id/edit', (req,res) => {
 
 // Post: Editing Artist
 
-router.post('/artists/:id', (req,res) => {
+router.post('/artists/:id', isLoggedIn, isAdmin, (req,res) => {
 
     const artistId = req.params.id;
     const {name, city, artType, description, pic, works} = req.body;

@@ -4,11 +4,14 @@ const router = express.Router();
 const Artwork = require('../models/Artwork.model');
 const Artist = require('../models/Artist.model');
 
+const {isLoggedIn, isLoggedOut, isAdmin} = require('../middleware/route-guard')
+
 const fileUploader = require('../config/cloudinary.config');
 
 
 //Get: Create new artwork
-router.get("/artwork/create", (req, res, next) => {
+router.get("/artwork/create", isLoggedIn, isAdmin, (req, res, next) => {
+
     Artist.find()
         .then((artists) => {
             res.render('artwork/artwork-create', {artists});
@@ -20,7 +23,7 @@ router.get("/artwork/create", (req, res, next) => {
         });
 });
 
-router.post("/artwork/create", fileUploader.single('imageURL'), (req, res, next) => {
+router.post("/artwork/create", isLoggedIn, isAdmin, fileUploader.single('imageURL'), (req, res, next) => {
 
     const {title, artist, story, mood, dateOfCompletion} = req.body;
 
@@ -110,7 +113,7 @@ router.get("/artwork/:id", (req, res, next) => {
 
 //Post: Delete Artwork
 
-router.post('/artwork/:id/delete', (req,res) => {
+router.post('/artwork/:id/delete', isLoggedIn, isAdmin, (req,res) => {
 
     const artworkId = req.params.id;
     const {artist} = req.body;
@@ -133,7 +136,7 @@ router.post('/artwork/:id/delete', (req,res) => {
 
 // Get: Editing Artwork
 
-router.get('/artwork/:id/edit', (req,res) => {
+router.get('/artwork/:id/edit', isLoggedIn, isAdmin, (req,res) => {
 
     const artworkId = req.params.id;
 
@@ -157,7 +160,7 @@ router.get('/artwork/:id/edit', (req,res) => {
 
 // Post: Editing Artwork
 
-router.post('/artwork/:id', (req,res) => {
+router.post('/artwork/:id', isLoggedIn, isAdmin, (req,res) => {
 
     const artworkId = req.params.id;
     const {imageURL, title, artist, story, mood, dateOfCompletion} = req.body;

@@ -19,7 +19,7 @@ const userSchema = new Schema({
     },
     isAdmin: {
       type: Boolean,
-      default: true
+      default: false
     },
     userPicture: {
       type: String,
