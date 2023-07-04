@@ -3,8 +3,9 @@ const router = express.Router();
 
 const Artist = require('../models/Artist.model');
 const Artwork = require('../models/Artwork.model');
+//const User = require('../models/User.model');
 
-const fileUploader = require('../config/cloudinary.config');
+//const fileUploader = require('../config/cloudinary.config');
 
 //Get: Create new artist
 router.get("/artists/create", (req, res, next) => {
@@ -22,7 +23,7 @@ router.post("/artists/create", (req, res, next) => {
         city: city, 
         artType: artType, 
         description: description, 
-        pic: 'ArtistPic', 
+        pic: pic, 
         links: links, 
         works: works
     });
