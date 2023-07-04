@@ -44,7 +44,7 @@ router.post("/artists/create", fileUploader.single('ArtistPic'), (req, res, next
 
 
 // //Post: Create New Artist
-// router.post("/artist/create", fileUploader.single('ArtistPic'), (req, res, next) => {
+// router.post("/artists/create", fileUploader.single('ArtistPic'), (req, res, next) => {
 
 //     const {name, city, artType, description} = req.body;
 
