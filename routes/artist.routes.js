@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 
@@ -14,52 +15,50 @@ router.get("/artists/create", (req, res, next) => {
 
 //VIV POST REQUEST
 // //Post: Create new artist
-// router.post("/artists/create", (req, res, next) => {
+router.post("/artists/create", fileUploader.single('ArtistPic'), (req, res, next) => {
 
-//     const {name, city, artType, description, pic, links, works} = req.body;
+    const {name, city, artType, description, pic} = req.body;
 
-//     // Create a new artist using the provided data
-//     const newArtist = new Artist ({
-//         name: name, 
-//         city: city, 
-//         artType: artType, 
-//         description: description, 
-//         pic: pic, 
-//         links: links, 
-//         works: works
-//     });
+    // Create a new artist using the provided data
+    const newArtist = new Artist ({
+        name: name, 
+        city: city, 
+        artType: artType, 
+        description: description, 
+        pic: 'ArtistPic' 
+    });
 
-//     // Save the new artist to the database
-//     newArtist
-//         .save()
-//         .then (artist => 
-//             // Redirect to the artist page after successful creation
-//             res.redirect('/artists')
-//         )
-//         .catch(error => {
-//             // Handle the error and render the new-artist view again
-//             res.render('./artists/artists-create', 
-//             { error: "please, try again to insert a new artist" });
-//         });
-// });
+    // Save the new artist to the database
+    newArtist
+        .save()
+        .then (artist => 
+            // Redirect to the artist page after successful creation
+            res.redirect('/artists')
+        )
+        .catch(error => {
+            // Handle the error and render the new-artist view again
+            res.render('./artists/artists-create', 
+            { error: "please, try again to insert a new artist" });
+        });
+});
 
 
-//Post: Create New Artist
-router.post("/artist/create", fileUploader.single('ArtistPic'), (req, res, next) => {
+// //Post: Create New Artist
+// router.post("/artist/create", fileUploader.single('ArtistPic'), (req, res, next) => {
 
-    const {name, city, artType, description, links, works} = req.body;
+//     const {name, city, artType, description} = req.body;
 
-Artist.create({name, city, artType, description, works, pic: 'ArtistPic'})
-.then((newArtist) => {
-  console.log(newArtist);
+// Artist.create({name, city, artType, description, pic: 'ArtistPic'})
+// .then(newArtist => {
+//   console.log(newArtist);
 
-    console.log('req.file', req.file);
-    console.log('req.body', req.body);
+//     console.log('req.file', req.file);
+//     console.log('req.body', req.body);
 
-  res.redirect("/artist/:id"); 
-})
-.catch((error) => console.log('Error while creating a new movie: ${error}'));
-})
+//   res.redirect("/artist"); 
+// })
+// .catch(error => console.log(`Error while creating a new artist: ${err}`));
+// })
 
 // OLD POST ROUTE: Create new artist
 // router.post("/artists/create", (req, res, next) => {
