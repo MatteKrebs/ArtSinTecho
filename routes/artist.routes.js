@@ -8,16 +8,26 @@ const Artwork = require('../models/Artwork.model');
 
 const fileUploader = require('../config/cloudinary.config');
 
+const {isLoggedIn, isAdmin} = require('../middleware/route-guard')
+
+
 //Get: Create new artist
-router.get("/artists/create", (req, res, next) => {
-    res.render ('artists/artists-create');
+router.get("/artists/create", isAdmin, (req, res, next) => {
+    res.render ('artists/artists-create', {isAdmin: true});
 });
 
 //VIV POST REQUEST
+<<<<<<< HEAD
 // //Post: Create new artist
 router.post("/artists/create", fileUploader.single('ArtistPic'), (req, res, next) => {
 
     const {name, city, artType, description, pic} = req.body;
+=======
+//Post: Create new artist
+router.post("/artists/create", isAdmin, (req, res, next) => {
+
+    const {name, city, artType, description, pic, links, works} = req.body;
+>>>>>>> 0530d53690a1b7fbe5568dd5150ba077901ecea5
 
     // Create a new artist using the provided data
     const newArtist = new Artist ({
@@ -25,7 +35,13 @@ router.post("/artists/create", fileUploader.single('ArtistPic'), (req, res, next
         city: city, 
         artType: artType, 
         description: description, 
+<<<<<<< HEAD
         pic: 'ArtistPic' 
+=======
+        pic: pic, 
+        links: links, 
+        works: works
+>>>>>>> 0530d53690a1b7fbe5568dd5150ba077901ecea5
     });
 
     // Save the new artist to the database
@@ -37,12 +53,17 @@ router.post("/artists/create", fileUploader.single('ArtistPic'), (req, res, next
         )
         .catch(error => {
             // Handle the error and render the new-artist view again
+<<<<<<< HEAD
             res.render('./artists/artists-create', 
+=======
+            res.render('./artists/artists-create',
+>>>>>>> 0530d53690a1b7fbe5568dd5150ba077901ecea5
             { error: "please, try again to insert a new artist" });
         });
 });
 
 
+<<<<<<< HEAD
 // //Post: Create New Artist
 // router.post("/artists/create", fileUploader.single('ArtistPic'), (req, res, next) => {
 
@@ -59,6 +80,28 @@ router.post("/artists/create", fileUploader.single('ArtistPic'), (req, res, next
 // })
 // .catch(error => console.log(`Error while creating a new artist: ${err}`));
 // })
+=======
+// Matt Post route not working
+
+// //Post: Create New Artist
+// router.post("/artist/create", fileUploader.single('ArtistPic'), (req, res, next) => {
+
+//     const {name, city, artType, description, links, works} = req.body;
+
+// Artist.create({name, city, artType, description, works, pic: 'ArtistPic'})
+// .then((newArtist) => {
+//   console.log(newArtist);
+
+//     console.log('req.file', req.file);
+//     console.log('req.body', req.body);
+
+//   res.redirect("/artist/:id"); 
+// })
+// .catch((error) => console.log('Error while creating a new movie: ${error}'));
+// })
+
+
+>>>>>>> 0530d53690a1b7fbe5568dd5150ba077901ecea5
 
 // OLD POST ROUTE: Create new artist
 // router.post("/artists/create", (req, res, next) => {
@@ -126,13 +169,12 @@ router.get("/artists/:id", (req, res, next) => {
 });
 
 
-
  /////// WE HAVE TO WORK ON THIS NEXT ROUTE
  //Should be able to delete all of the artwork, and then, 
  //delete the artist of those artworks
 //Post: Delete artist
 
-router.post('/artists/:id/delete', (req,res) => {
+router.post('/artists/:id/delete', isAdmin,  (req,res) => {
 
    // const artworkId = req.params.id;
     const artistId = req.params.id;
@@ -151,7 +193,7 @@ router.post('/artists/:id/delete', (req,res) => {
             .then (()=>res.redirect('/artists'))
             .catch((error) => {
             console.log("error deleting artist", error);
-            res.render('error');
+            res.render('error', {isAdmin: true});
             });
         })
         .then (() => res.redirect('/artwork'))
@@ -190,7 +232,7 @@ router.post('/artists/:id/delete', (req,res) => {
 
 // Get: Editing Artist
 
-router.get('/artists/:id/edit', (req,res) => {
+router.get('/artists/:id/edit', isLoggedIn, isAdmin, (req,res) => {
 
     const artistId = req.params.id;
 
@@ -215,7 +257,7 @@ router.get('/artists/:id/edit', (req,res) => {
 
 // Post: Editing Artist
 
-router.post('/artists/:id', (req,res) => {
+router.post('/artists/:id', isLoggedIn, isAdmin, (req,res) => {
 
     const artistId = req.params.id;
     const {name, city, artType, description, pic, works} = req.body;

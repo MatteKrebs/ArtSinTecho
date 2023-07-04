@@ -17,7 +17,41 @@
       {{!-- <nav class="navbar navbar-expand-lg">
          <a class="nav-link" href="/movies/create">Add movie</a>
       </nav> --}}
+<<<<<<< HEAD
      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+=======
+
+      <nav style="display:flex; justify-content:space-around">
+         <a href="/">Home</a>
+         {{#if loggedIn}}
+         <a href="/auth/profile">Profile</a>
+         <form id="logout-form" action="/auth/logout" method="POST">
+            <button>Logout</button>
+         </form>
+
+         {{else}}
+         <a href="/auth/signup">Signup</a>
+         <a href="/auth/login">Login</a>
+         {{/if}}
+      </nav>
+   
+
+      <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" role="button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+         Dropdown
+      </button>
+      <ul class="dropdown-menu">
+         <li><a class="dropdown-item" href="/">ArtSinTecho</a></li>
+         <li><a class="dropdown-item" href="/artists/create">Create Artist</a></li>
+         <li><a class="dropdown-item" href="/artist">All Artists</a></li>
+         <li><a class="dropdown-item" href="/artwork">All Artwork</a></li>
+      </ul>
+      </div>
+
+
+
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+>>>>>>> 0530d53690a1b7fbe5568dd5150ba077901ecea5
   <div class="container-fluid">
     <a class="navbar-brand" href="/">ArtSinTecho</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">

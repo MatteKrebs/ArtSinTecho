@@ -65,8 +65,8 @@ router.post('/login', (req, res, next) => {
         res.render('auth/login', { errorMessage: 'Username is not registered. Try with other username.'});
         return;
       } else if (bcrypt.compareSync(password, user.password)) {
-        const {username, city} = user;
-        req.session.currentUser = {username, city};
+        const {username, city, isAdmin} = user;
+        req.session.currentUser = {username, city, isAdmin};
         user.loggedIn = true;
         res.render('auth/profile', user );
       } else {

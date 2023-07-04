@@ -1,3 +1,4 @@
+
 // checks if the user is logged in when trying to access a specific page
 const isLoggedIn = (req, res, next) => {
   if (!req.session.currentUser) {
@@ -14,8 +15,24 @@ const isLoggedOut = (req, res, next) => {
   }
   next();
 };
+
+
+// checks if the user is admin in when trying to access a specific page
+
+const isAdmin = (req, res, next) => {
+
+  const currentUser = req.session.currentUser;
+  
+  if (!currentUser || currentUser.isAdmin !== true) {
+    return res.redirect('/');
+  }
+  next();
+};
+ 
+
  
 module.exports = {
   isLoggedIn,
-  isLoggedOut
+  isLoggedOut,
+  isAdmin
 };
