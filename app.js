@@ -28,7 +28,11 @@ require("./config/session.config.js")(app);
 const capitalize = require("./utils/capitalize");
 const projectName = "ArtSinTecho";
 
+<<<<<<< HEAD
 app.locals.appTitle = `${capitalize(projectName)} created by Matt and Viviane`;
+=======
+app.locals.appTitle = `${capitalize(projectName)}`;
+>>>>>>> a5a876b (update create routes)
 
 // 👇 Start handling routes here
 const indexRoutes = require("./routes/index.routes");
