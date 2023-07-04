@@ -7,11 +7,9 @@ require("dotenv").config();
 require("./db");
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://127.0.0.1:27017/ArtSinTecho')
-    .then(() => console.log('Database good.'))
-    .catch(err => console.log(err));
-
-
+// mongoose.connect('mongodb://127.0.0.1:27017/ArtSinTecho')
+//     .then(() => console.log('Database good.'))
+//     .catch(err => console.log(err));
 
 const express = require("express");
 const app = express();
@@ -24,30 +22,34 @@ app.use(express.static('public'));
 
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);
+require("./config/session.config.js")(app);
 
 // default value for title local
 const capitalize = require("./utils/capitalize");
 const projectName = "ArtSinTecho";
 
-app.locals.appTitle = `${capitalize(projectName)}`;
+
+app.locals.appTitle = `${capitalize(projectName)} created by Matt and Viviane`;
+
 
 // 👇 Start handling routes here
 const indexRoutes = require("./routes/index.routes");
 app.use("/", indexRoutes);
 
-// ITERATION 1
+
 // Import the route files
-const artistsRoutes = require('./routes/artist.routes')
+const artistsRoutes = require('./routes/artist.routes');
 const artworkRoutes = require('./routes/artwork.routes');
+const authRoutes = require("./routes/auth.routes");
 
 // Link the route files to the main router
 app.use('/', artistsRoutes);
 app.use('/', artworkRoutes);
+app.use('/auth', authRoutes);
 
-
-// ITERATION 1(END)
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
+
 
 module.exports = app;

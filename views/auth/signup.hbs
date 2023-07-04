@@ -2,20 +2,24 @@
 
 <div id="form">
   <h2>Signup</h2>
-  <form action="/signup" method="POST">
+  <form action="/auth/signup" method="POST">
 
     <label> Username
-      <input type="text" name="username" placeholder="ironhacker" />
+      <input type="text" name="username" placeholder="username" required/>
     </label>
-
-    <label> Email
-      <input type="email" name="email" placeholder="rockstar@ironhack.com" />
-    </label>
-
+<br>
     <label> Password
-      <input type="password" name="password" placeholder="********" />
+      <input type="password" name="password" placeholder="********" required/>
     </label>
-
+<br>
+     <label> Picture
+      <input id="userPicture" type="file" name="userPicture"/>
+    </label>
+<br>
+    <label> City
+      <input type="text" name="city"/>
+    </label>
+<br>
     <button type="submit">Create account</button>
 
   </form>

@@ -1,9 +1,18 @@
 const express = require('express');
 const router = express.Router();
+const User = require('../models/User.model')
 
 /* GET home page */
 router.get("/", (req, res, next) => {
-  res.render("index");
+  console.log('req.session', req.session)
+
+  if(req.session.currentUser){
+    res.render("index", {loggedIn: true});
+  }
+  else{
+    res.render("index")
+  }
+
 });
 
 module.exports = router;
