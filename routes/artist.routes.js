@@ -197,7 +197,7 @@ router.post('/artists/:id/delete', isAdmin,  (req,res) => {
 
 // Get: Editing Artist
 
-router.get('/artists/:id/edit', isLoggedIn, isAdmin, (req,res) => {
+router.get('/artists/:id/edit', isAdmin, (req,res) => {
 
     const artistId = req.params.id;
 
