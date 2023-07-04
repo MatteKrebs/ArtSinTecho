@@ -3,6 +3,7 @@ const router = express.Router();
 
 const Artist = require('../models/Artist.model');
 const Artwork = require('../models/Artwork.model');
+//const User = require('../models/User.model');
 
 const fileUploader = require('../config/cloudinary.config');
 
@@ -10,6 +11,37 @@ const fileUploader = require('../config/cloudinary.config');
 router.get("/artists/create", (req, res, next) => {
     res.render ('artists/artists-create');
 });
+
+//VIV POST REQUEST
+// //Post: Create new artist
+// router.post("/artists/create", (req, res, next) => {
+
+//     const {name, city, artType, description, pic, links, works} = req.body;
+
+//     // Create a new artist using the provided data
+//     const newArtist = new Artist ({
+//         name: name, 
+//         city: city, 
+//         artType: artType, 
+//         description: description, 
+//         pic: pic, 
+//         links: links, 
+//         works: works
+//     });
+
+//     // Save the new artist to the database
+//     newArtist
+//         .save()
+//         .then (artist => 
+//             // Redirect to the artist page after successful creation
+//             res.redirect('/artists')
+//         )
+//         .catch(error => {
+//             // Handle the error and render the new-artist view again
+//             res.render('./artists/artists-create', 
+//             { error: "please, try again to insert a new artist" });
+//         });
+// });
 
 
 //Post: Create New Artist
@@ -58,6 +90,7 @@ Artist.create({name, city, artType, description, works, pic: 'ArtistPic'})
 //             { error: "please, try again to insert a new artist" });
 //         });
 // });
+
 
 
 

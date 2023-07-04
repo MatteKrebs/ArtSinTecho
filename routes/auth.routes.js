@@ -1,15 +1,21 @@
 const bcrypt = require ('bcrypt');
 const saltRounds = 10;
 
-const User = require('../models/User.model')
-
 const express = require('express');
 const router = express.Router();
 
+const User = require('../models/User.model')
+const {isLoggedIn, isLoggedOut} = require('../middleware/route-guard')
 
 
-router.get("/signup", (req, res, next) => {
-    res.render('auth/signup')
+
+router.get("/signup", isLoggedOut, (req, res, next) => {
+    if(req.session.currentUser){
+      res.render('auth/signup', {loggedIn:true})
+    }
+    else{
+      res.render('auth/signup')
+    }
   });
 
 
@@ -30,15 +36,22 @@ router.post("/signup", (req, res, next) => {
         });
       })
       .then(userFromDB => {
+        const {username} = userFromDB;
+        req.session.currentUser = {username}
         console.log('New user added', userFromDB);
-        res.redirect(`/auth/profile/${userFromDB.username}`)
+        res.redirect(`/auth/profile`)
       })
       .catch(error => next(error));
   });
 
 
-router.get('/login', (req,res) =>{
-  res.render('auth/login')
+router.get('/login', isLoggedOut, (req,res) =>{
+  if(req.session.currentUser){
+      res.render('auth/login', {loggedIn:true})
+    }
+  else{
+    res.render('auth/login')
+  }
 })
   
 
@@ -54,6 +67,7 @@ router.post('/login', (req, res, next) => {
       } else if (bcrypt.compareSync(password, user.password)) {
         const {username, city} = user;
         req.session.currentUser = {username, city};
+        user.loggedIn = true;
         res.render('auth/profile', user );
       } else {
         res.render('auth/login', { errorMessage: 'Incorrect password. Please try again.' });
@@ -64,12 +78,13 @@ router.post('/login', (req, res, next) => {
 
 
 
-router.get("/profile/:username", (req, res, next) => {
+router.get("/profile", isLoggedIn, (req, res, next) => {
 
   if(req.session.currentUser) {
-    User.findOne({username: req.params.username})
+    User.findOne({username: req.session.currentUser.username})
       .then(foundUser => {
         console.log('foundUser', foundUser)
+        foundUser.loggenIn = true;
         res.render('auth/profile', foundUser)
       })
       .catch(err => console.log(err))
@@ -85,7 +100,7 @@ router.get("/profile/:username", (req, res, next) => {
 
 router.post('/logout', (req , res) =>{
   req.session.destroy(err => {
-    if (err) next(err);
+    if (err) console.log(err);
     res.redirect('/');
   })
 })

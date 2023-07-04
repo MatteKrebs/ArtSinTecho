@@ -11,6 +11,8 @@
    </head>
 
    <body>
+   
+   
          {{!-- nav bar added from codealong, but we will figure this out later with Bootstrap  --}}
       {{!-- <nav class="navbar navbar-expand-lg">
          <a class="nav-link" href="/movies/create">Add movie</a>
@@ -40,18 +42,78 @@
 <a href="/artwork">All Artwork</a></nav> --}}
 
 
-     <nav>
-      <a href="/">Home</a>
-      <a href="/signup">Signup</a>
+
+     <nav style="display:flex; justify-content:space-around">
+         <a href="/">Home</a>
+
+         {{#if loggedIn}}
+         <a href="/auth/profile">Profile</a>
       <a href="/artists/create">Create a new Artist</a>
       <a href="/artists">All the Artists</a>
       <a href="/artwork/create">Add a new Artwork</a>
       <a href="/artwork">All the Artwork</a></nav>
 
-      <a href="/login">Login</a>
-      <a href="/logout">Logout</a>
+         <form id="logout-form" action="/auth/logout" method="POST">
+            <button>Logout</button>
+         </form>
 
+         {{else}}
+         <a href="/auth/signup">Signup</a>
+         <a href="/auth/login">Login</a>
+         {{/if}}
       </nav>
+
+
+
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">ArtSinTecho</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" href="/artists/create">Add an Artist</a>
+        <a class="nav-link" href="/artwork/create">Add Artwork</a>
+        <a class="nav-link" href="/artists">All Artists</a>
+        <a class="nav-link" href="/artwork">Available Work</a>
+      </div>
+    </div>
+  </div>
+</nav>
+<nav>
+
+{{!-- <a href="/">Home</a>
+<a href="/artists/create">Create a new Artist</a>
+<a href="/artists">All the Artists</a>
+<a href="/artwork/create">Add a new Artwork</a>
+<a href="/artwork">All Artwork</a></nav> --}}
+
+
+
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">ArtSinTecho</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" href="/artists/create">Add an Artist</a>
+        <a class="nav-link" href="/artwork/create">Add Artwork</a>
+        <a class="nav-link" href="/artists">All Artists</a>
+        <a class="nav-link" href="/artwork">Available Work</a>
+      </div>
+    </div>
+  </div>
+</nav>
+<nav>
+
+{{!-- <a href="/">Home</a>
+<a href="/artists/create">Create a new Artist</a>
+<a href="/artists">All the Artists</a>
+<a href="/artwork/create">Add a new Artwork</a>
+<a href="/artwork">All Artwork</a></nav> --}}
 
 
       {{{body}}}
