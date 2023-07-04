@@ -4,7 +4,7 @@
 <br>
 <br>
     {{artist.pic}}
-    <h2>{{artist.name}}</h2>
+    <h6>Name:{{artist.name}}</h6>
     <br>
     {{artist.city}}
     <br>
@@ -24,6 +24,7 @@
 
     <br>
 
+{{#if isAdmin}}
 
 <form action="/artists/{{artist._id}}/edit" method="GET">
      <button type="submit">Edit Artist</button>
@@ -32,3 +33,5 @@
 <form action="/artists/{{artist._id}}/delete" method="POST">
      <button type="submit">Delete Artist</button>
 </form>
+
+{{/if}}

@@ -7,7 +7,7 @@ const Artwork = require('../models/Artwork.model');
 
 //const fileUploader = require('../config/cloudinary.config');
 
-const {isLoggedIn, isLoggedOut, isAdmin} = require('../middleware/route-guard')
+const {isLoggedIn, isAdmin} = require('../middleware/route-guard')
 
 
 //Get: Create new artist
@@ -41,7 +41,7 @@ router.post("/artists/create", isAdmin, (req, res, next) => {
         )
         .catch(error => {
             // Handle the error and render the new-artist view again
-            res.render('./artists/artists-create', 
+            res.render('./artists/artists-create',
             { error: "please, try again to insert a new artist" });
         });
 });
@@ -158,7 +158,7 @@ router.post('/artists/:id/delete', isAdmin,  (req,res) => {
             .then (()=>res.redirect('/artists'))
             .catch((error) => {
             console.log("error deleting artist", error);
-            res.render('error');
+            res.render('error', {isAdmin: true});
             });
         })
         .then (() => res.redirect('/artwork'))

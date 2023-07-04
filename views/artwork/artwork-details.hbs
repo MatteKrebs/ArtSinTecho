@@ -27,7 +27,7 @@
         <br>
     <br>
 
-
+{{#if isAdmin}}
 <form action="/artwork/{{artwork._id}}/edit" method="GET">
      <button type="submit">Edit Artwork</button>
 </form>
@@ -35,3 +35,4 @@
 <form action="/artwork/{{artwork._id}}/delete" method="POST">
      <button type="submit">Delete Artwork</button>
 </form>
+{{/if}}
