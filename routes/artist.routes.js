@@ -116,7 +116,7 @@ router.get('/artists', (req,res) => {
 
  
 //Get: Display single artist
-router.get("/artists/:id", (req, res, next) => {
+router.get("/artists/:id", isAdmin, (req, res, next) => {
 
     const artistId = req.params.id;
 
@@ -124,7 +124,7 @@ router.get("/artists/:id", (req, res, next) => {
         .populate("works")
         .then((artist) => {
             console.log(artist)
-            res.render('artists/artist-details', {artist});
+            res.render('artists/artist-details', {artist, isAdmin: true});
         })
         
         .catch((error) => {
@@ -139,57 +139,59 @@ router.get("/artists/:id", (req, res, next) => {
  //delete the artist of those artworks
 //Post: Delete artist
 
-router.post('/artists/:id/delete', isAdmin,  (req,res) => {
+// router.post('/artists/:id/delete', isAdmin,  (req,res) => {
 
-   // const artworkId = req.params.id;
-    const artistId = req.params.id;
-    const {works} = req.body;
-
-
-    Artwork.findByIdAndRemove(artistId)
-        .then((deletedArtwork)=> {
-            const {_id} = deletedArtwork;
-
-            return Artist.findByIdAndUpdate(works, {$pull:{works:_id}})}
-        )
-        .then(()=>{
-            Artist.findByIdAndRemove(artistId)
-
-            .then (()=>res.redirect('/artists'))
-            .catch((error) => {
-            console.log("error deleting artist", error);
-            res.render('error', {isAdmin: true});
-            });
-        })
-        .then (() => res.redirect('/artwork'))
-        .catch((error) => {
-        console.log("error deleting artwork", error);
-        res.render('error');
-        });
-    
-})
+//    // const artworkId = req.params.id;
+//     const artistId = req.params.id;
+//     const {works} = req.body;
 
 
-// router.post('/artwork/:id/delete', (req,res) => {
-
-//     const artworkId = req.params.id;
-//     const {artist} = req.body;
-
-
-//     Artwork.findByIdAndRemove(artworkId)
+//     Artwork.findByIdAndRemove(artistId)
 //         .then((deletedArtwork)=> {
 //             const {_id} = deletedArtwork;
-    
-//             return Artist.findByIdAndUpdate(artist, {$pull:{works:_id}})}
+
+//             return Artist.findByIdAndUpdate(works, {$pull:{works:_id}})}
 //         )
+//         .then(()=>{
+//             Artist.findByIdAndRemove(artistId)
+
+//             .then (()=>res.redirect('/artists'))
+//             .catch((error) => {
+//             console.log("error deleting artist", error);
+//             res.render('error', {isAdmin: true});
+//             });
+//         })
 //         .then (() => res.redirect('/artwork'))
 //         .catch((error) => {
 //         console.log("error deleting artwork", error);
-//         res.render('error');
+//         res.render('error', {isAdmin: true});
 //         });
+    
 // })
 
 
+
+// This route deletes the artist, even though is not deleting it's artwork!
+// BUT IT WORKS!
+
+router.post('/artists/:id/delete', (req,res) => {
+
+    const artistId = req.params.id;
+    const {artist} = req.body;
+
+
+    Artist.findByIdAndRemove(artistId)
+        .then((deletedArtist)=> {
+            const {_id} = deletedArtist;
+    
+            return Artist.findByIdAndUpdate(artist, {$pull:{works:_id}})}
+        )
+        .then (() => res.redirect('/artists'))
+        .catch((error) => {
+        console.log("error deleting artist", error);
+        res.render('error');
+        });
+})
 
 
 
@@ -205,16 +207,16 @@ router.get('/artists/:id/edit', isAdmin, (req,res) => {
         .then ((artist)=> {
             Artist.find()
                 .then((artists) => {
-                    res.render('./artists/artist-edit', {artists});
+                    res.render('./artists/artist-edit', {artists, isAdmin: true});
                 })
                 .catch((error) => {
                     console.log("error rendering artist", error);
-                    res.render('error');
+                    res.render('error', {isAdmin: true});
                 });
         })
         .catch ((error) => {
             console.log("error fetching artist", error);
-            res.render('error');
+            res.render('error', {isAdmin: true});
         });
 });
 
@@ -222,23 +224,19 @@ router.get('/artists/:id/edit', isAdmin, (req,res) => {
 
 // Post: Editing Artist
 
-router.post('/artists/:id', isLoggedIn, isAdmin, (req,res) => {
+router.post('/artists/:id', isAdmin, (req,res) => {
 
     const artistId = req.params.id;
-    const {name, city, artType, description, pic, works} = req.body;
+    const {name, city, artType, description, pic} = req.body;
 
     Artwork.findByIdAndUpdate(artistId, {name, city, artType, description, pic, works})
         .then (()=> 
             res.redirect(`/artists/${artistId}`))
         .catch((error) => {
         console.log("error editing artists", error);
-        res.render('error');
+        res.render('error', {isAdmin: true});
         });
 })
-
-
-
-
 
 
 
