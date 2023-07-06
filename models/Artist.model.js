@@ -23,7 +23,7 @@ const artistSchema = new Schema({
         default: './images/vecteezy_user-profile-icon-profile-avatar-user-icon-male-icon_20911750_60.png',
     },
     works:
-      [{type: Schema.Types.ObjectId, ref: 'Artwork'}]
+      {type: [Schema.Types.ObjectId], ref: 'Artwork'}
   },
   {
     timestamps: true
