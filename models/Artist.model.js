@@ -24,7 +24,7 @@ const artistSchema = new Schema({
     },
     works:
       {type: [Schema.Types.ObjectId], ref: 'Artwork'}
-  ,
+},
   {
     timestamps: true
   }
