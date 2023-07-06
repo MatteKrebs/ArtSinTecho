@@ -4,7 +4,7 @@ const router = express.Router();
 const Artwork = require('../models/Artwork.model');
 const Artist = require('../models/Artist.model');
 
-const {isLoggedIn, isAdmin} = require('../middleware/route-guard')
+const {isAdmin} = require('../middleware/route-guard')
 
 const fileUploader = require('../config/cloudinary.config');
 
@@ -31,14 +31,16 @@ router.post("/artwork/create", isAdmin, fileUploader.single('imageURL'), (req, r
     Artwork.create({ title, artist, story, mood, dateOfCompletion, imageURL})
     .then((newArt) => {
       console.log(newArt);
+      const {_id} = newArt;
+    Artist.findByIdAndUpdate(artist, {$push:{works:_id}});
 
     console.log('req.file', req.file);
     console.log('req.body', req.body);
 
 
-      res.redirect("/artwork"); 
+      res.redirect("/artwork");
     })
-    .catch((error) => console.log('Error while creating a new movie: ${error}'));
+    .catch((error) => console.log(`Error while creating a new artwork: ${error}`));
 });
 
 
@@ -93,20 +95,48 @@ router.get('/artwork', (req, res) => {
 
  
 //Get: Display single artwork
-router.get("/artwork/:id", isAdmin, (req, res, next) => {
+router.get("/artwork/:id", (req, res, next) => {
 
     const artworkId = req.params.id;
 
-    Artwork.findById(artworkId)
-        .populate('artist')
-        .then((artwork) => {
-            res.render('artwork/artwork-details', {artwork, isAdmin: true});
-            console.log(artwork.artist)
-        })
-        .catch((error) => {
-        console.log("error fetching artwork", error);
-        res.render('error');
-        });
+        if(req.session.currentUser){
+        
+            Artwork.findById(artworkId)
+            .populate("artist")
+            .then((data) => {
+                console.log(data)
+                res.render('artwork/artwork-details', {data, isAdmin:req.session.currentUser.isAdmin});
+            })
+            .catch((error) => {
+            console.log("error fetching artwork", error);
+            res.render('error');
+            });
+        }
+        else if(req.session.currentUser){
+            Artwork.findById(artworkId)
+            .populate("artist")
+            .then((data) => {
+                console.log(data)
+                res.render('artwork/artwork-details', {data, loggedIn: true});
+            })
+            .catch((error) => {
+                console.log("error fetching artwork", error);
+                res.render('error');
+                });
+        }
+        else{
+            Artwork.findById(artworkId)
+            .populate("artist")
+            .then((data) => {
+                console.log(data)
+                res.render('artwork/artwork-details', {data});
+            })
+            .catch((error) => {
+                console.log("error fetching artwork", error);
+                res.render('error');
+                });
+        }
+
 });
 
 

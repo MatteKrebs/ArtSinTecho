@@ -18,10 +18,10 @@
     <br> 
     <h5>Artwork from this Artist:</h5>
     <br>
+    {{artist.works.title}}
           {{#each artist.works}}
-            <p> {{title}}</p>
+            <p>{{title}}</p>
           {{/each}}
-
     <br>
 
 {{#if isAdmin}}
