@@ -20,7 +20,10 @@ router.get("/artists/create", isAdmin, (req, res, next) => {
 // //Post: Create new artist
 router.post("/artists/create", fileUploader.single('ArtistPic'), (req, res, next) => {
 
-    const {name, city, artType, description, pic} = req.body;
+    const {name, city, artType, description, works} = req.body;
+    const pic = req.file.path
+
+    console.log('pic', pic);
 
     // Create a new artist using the provided data
     const newArtist = new Artist ({
@@ -28,7 +31,8 @@ router.post("/artists/create", fileUploader.single('ArtistPic'), (req, res, next
         city: city, 
         artType: artType, 
         description: description, 
-        pic: 'ArtistPic' 
+        pic: pic,
+        works: works
     });
 
     // Save the new artist to the database
