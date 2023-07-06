@@ -25,6 +25,7 @@ a {
   font-size: 1.5em;
 }
  
+
 form {
   margin: 30px auto;
   width: 380px;
@@ -119,7 +120,6 @@ ul li {
 #logout-form button {
   width: 120px;
 }
- /* CSS for Signup form (end) */
 
 
 

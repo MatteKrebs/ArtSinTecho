@@ -1,11 +1,12 @@
+const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 
 const Artist = require('../models/Artist.model');
 const Artwork = require('../models/Artwork.model');
-//const User = require('../models/User.model');
+const User = require('../models/User.model');
 
-//const fileUploader = require('../config/cloudinary.config');
+const fileUploader = require('../config/cloudinary.config');
 
 const {isLoggedIn, isAdmin} = require('../middleware/route-guard')
 
@@ -16,10 +17,13 @@ router.get("/artists/create", isAdmin, (req, res, next) => {
 });
 
 //VIV POST REQUEST
-//Post: Create new artist
-router.post("/artists/create", isAdmin, (req, res, next) => {
+// //Post: Create new artist
+router.post("/artists/create", fileUploader.single('ArtistPic'), (req, res, next) => {
 
-    const {name, city, artType, description, pic, links, works} = req.body;
+    const {name, city, artType, description, works} = req.body;
+    const pic = req.file.path
+
+    console.log('pic', pic);
 
     // Create a new artist using the provided data
     const newArtist = new Artist ({
@@ -27,8 +31,7 @@ router.post("/artists/create", isAdmin, (req, res, next) => {
         city: city, 
         artType: artType, 
         description: description, 
-        pic: pic, 
-        links: links, 
+        pic: pic,
         works: works
     });
 
@@ -41,7 +44,7 @@ router.post("/artists/create", isAdmin, (req, res, next) => {
         )
         .catch(error => {
             // Handle the error and render the new-artist view again
-            res.render('./artists/artists-create',
+            res.render('./artists/artists-create', 
             { error: "please, try again to insert a new artist" });
         });
 });

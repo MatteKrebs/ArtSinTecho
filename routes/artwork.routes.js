@@ -26,8 +26,9 @@ router.get("/artwork/create", isAdmin, (req, res, next) => {
 router.post("/artwork/create", isAdmin, fileUploader.single('imageURL'), (req, res, next) => {
 
     const {title, artist, story, mood, dateOfCompletion} = req.body;
+    const imageURL = req.file.path; 
 
-    Artwork.create({ title, artist, story, mood, dateOfCompletion, imageUrl: req.file.path })
+    Artwork.create({ title, artist, story, mood, dateOfCompletion, imageURL})
     .then((newArt) => {
       console.log(newArt);
 
