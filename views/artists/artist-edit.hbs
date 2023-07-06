@@ -1,12 +1,16 @@
 <h2>Edit Artist</h2>
 
 <form action="/artists/{{artist._id}}" method="POST">
+    <label>Picture</label>
     <input id="pic" type="pic" name="pic"/>
     <br>
     <br>
-    <label>Name</label>
-    <input id="name" type="text" name="name"/>
-    <br>
+    <label for="artists">Name</label>
+    <select name="artist" id="artist" multiple>
+        {{#each artists}}
+            <option value="{{_id}}">{{name}}</option>
+        {{/each}}
+    </select>
     <br>
     <label>City</label>
     <input id="city" type="text" name="city"/>
@@ -18,10 +22,6 @@
     <br>
     <label>Description</label>
     <input id="description" type="text" name="description"/>
-    <br>
-    <br>
-    <label>Works</label>
-    <input id="works" type="text" name="works"/>
     <br>
     <br>
     <button type="submit">Edit Artist</button>

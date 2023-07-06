@@ -4,14 +4,17 @@ const router = express.Router();
 const Artwork = require('../models/Artwork.model');
 const Artist = require('../models/Artist.model');
 
+const {isLoggedIn, isAdmin} = require('../middleware/route-guard')
+
 const fileUploader = require('../config/cloudinary.config');
 
 
 //Get: Create new artwork
-router.get("/artwork/create", (req, res, next) => {
+router.get("/artwork/create", isAdmin, (req, res, next) => {
+
     Artist.find()
         .then((artists) => {
-            res.render('artwork/artwork-create', {artists});
+            res.render('artwork/artwork-create', {artists, isAdmin: true});
             console.log(artists);
         })
         .catch((error) => {
@@ -20,7 +23,7 @@ router.get("/artwork/create", (req, res, next) => {
         });
 });
 
-router.post("/artwork/create", fileUploader.single('imageURL'), (req, res, next) => {
+router.post("/artwork/create", isAdmin, fileUploader.single('imageURL'), (req, res, next) => {
 
     const {title, artist, story, mood, dateOfCompletion} = req.body;
 
@@ -89,14 +92,14 @@ router.get('/artwork', (req, res) => {
 
  
 //Get: Display single artwork
-router.get("/artwork/:id", (req, res, next) => {
+router.get("/artwork/:id", isAdmin, (req, res, next) => {
 
     const artworkId = req.params.id;
 
     Artwork.findById(artworkId)
         .populate('artist')
         .then((artwork) => {
-            res.render('artwork/artwork-details', {artwork});
+            res.render('artwork/artwork-details', {artwork, isAdmin: true});
             console.log(artwork.artist)
         })
         .catch((error) => {
@@ -110,7 +113,7 @@ router.get("/artwork/:id", (req, res, next) => {
 
 //Post: Delete Artwork
 
-router.post('/artwork/:id/delete', (req,res) => {
+router.post('/artwork/:id/delete', isAdmin, (req,res) => {
 
     const artworkId = req.params.id;
     const {artist} = req.body;
@@ -125,7 +128,7 @@ router.post('/artwork/:id/delete', (req,res) => {
         .then (() => res.redirect('/artwork'))
         .catch((error) => {
         console.log("error deleting artwork", error);
-        res.render('error');
+        res.render('error', {isAdmin: true});
         });
 })
 
@@ -133,7 +136,7 @@ router.post('/artwork/:id/delete', (req,res) => {
 
 // Get: Editing Artwork
 
-router.get('/artwork/:id/edit', (req,res) => {
+router.get('/artwork/:id/edit', isAdmin, (req,res) => {
 
     const artworkId = req.params.id;
 
@@ -142,22 +145,22 @@ router.get('/artwork/:id/edit', (req,res) => {
         .then ((artwork)=> {
             Artist.find()
                 .then((artists) => {
-                    res.render('./artwork/artwork-edit', {artwork, artists});
+                    res.render('./artwork/artwork-edit', {artwork, artists, isAdmin: true});
                 })
                 .catch((error) => {
                     console.log("error rendering artwork", error);
-                    res.render('error');
+                    res.render('error', {isAdmin: true});
                 });
         })
         .catch ((error) => {
             console.log("error fetching movie", error);
-            res.render('error');
+            res.render('error', {isAdmin: true});
         });
 });
 
 // Post: Editing Artwork
 
-router.post('/artwork/:id', (req,res) => {
+router.post('/artwork/:id', isAdmin, (req,res) => {
 
     const artworkId = req.params.id;
     const {imageURL, title, artist, story, mood, dateOfCompletion} = req.body;
@@ -167,11 +170,9 @@ router.post('/artwork/:id', (req,res) => {
             res.redirect(`/artwork/${artworkId}`))
         .catch((error) => {
         console.log("error editing artwork", error);
-        res.render('error');
+        res.render('error', {isAdmin: true});
         });
 })
-
-
 
 
 module.exports = router;
