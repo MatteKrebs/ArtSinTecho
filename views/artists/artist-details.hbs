@@ -4,23 +4,23 @@
 <br>
 <br>
     {{artist.pic}}
-    <h6>Name:{{artist.name}}</h6>
+    <h5>Name: {{artist.name}}</h5>
     <br>
-    {{artist.city}}
+    City: {{artist.city}}
     <br>
     <br>
-    {{artist.artType}}
+    Art type: {{artist.artType}}
     <br>
     <br> 
-    {{artist.description}}  
+    Description: {{artist.description}}  
     <br>
     <br>
     <br> 
     <h5>Artwork from this Artist:</h5>
     <br>
-         {{#each artist.works}}
+          {{#each artist.works}}
             <option value="{{_id}}">{{title}}</option>
-        {{/each}}
+          {{/each}}
 
     <br>
 

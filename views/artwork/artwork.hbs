@@ -6,16 +6,21 @@
     <br>
     <br>
     <br>
-    {{imageURL}}
-    <h2>{{title}}</h2>
+    <img
+      src="{{artwork.imageURL}}"
+      alt="Piece of Art"
+      id="art-piece"
+    />
+    <h4>{{title}}</h4>
     <br>
-    {{story}}
+    Story: {{story}}
     <br>
     <br>
-    {{mood}}
+    Art Type: {{mood}}
     <br>
     <br>
-    <h5>Artist:</h5>
+    <br>
+    <h6>Artist:</h6>
     <br>
     <label>Name:</label>
         {{artist.name}}

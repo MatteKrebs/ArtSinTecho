@@ -2,7 +2,11 @@
 <br>
 {{#each artists}}
     <br>
-    {{pic}}
+    <img
+      src="{{artist.pic}}"
+      alt="Profile Picture"
+      id="avatar"
+    />
     <br>
     <br>
    {{name}}
@@ -11,6 +15,9 @@
     <br>
     <br>
     <a href="/artists/{{id}}">More Details</a>
+    <br>
+    <br>
+    <br>
     <br>
 {{/each}}
 
