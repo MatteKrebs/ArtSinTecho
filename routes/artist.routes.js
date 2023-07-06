@@ -119,21 +119,47 @@ router.get('/artists', (req,res) => {
 
  
 //Get: Display single artist
-router.get("/artists/:id", isAdmin, (req, res, next) => {
+router.get("/artists/:id", (req, res, next) => {
 
     const artistId = req.params.id;
 
-    Artist.findById(artistId)
+    if(req.session.currentUser){
+        
+        Artist.findById(artistId)
         .populate("works")
         .then((artist) => {
             console.log(artist)
-            res.render('artists/artist-details', {artist, isAdmin: true});
+            res.render('artists/artist-details', {artist, isAdmin:req.session.currentUser.isAdmin});
         })
-        
         .catch((error) => {
-        console.log("error fetching artwork", error);
-        res.render('error');
-        });
+            console.log("error fetching artwork", error);
+            res.render('error');
+            });
+    }
+    else if(req.session.currentUser){
+        Artist.findById(artistId)
+        .populate("works")
+        .then((artist) => {
+            console.log(artist)
+            res.render('artists/artist-details', {artist, loggedIn: true});
+        })
+        .catch((error) => {
+            console.log("error fetching artwork", error);
+            res.render('error');
+            });
+    }
+    else{
+        Artist.findById(artistId)
+        .populate("works")
+        .then((artist) => {
+            console.log(artist)
+            res.render('artists/artist-details', {artist});
+        })
+        .catch((error) => {
+            console.log("error fetching artwork", error);
+            res.render('error');
+            });
+    }
 });
 
 
