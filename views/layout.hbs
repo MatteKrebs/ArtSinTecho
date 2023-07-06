@@ -11,12 +11,6 @@
    </head>
 
    <body>
-   
-   
-         {{!-- nav bar added from codealong, but we will figure this out later with Bootstrap  --}}
-      {{!-- <nav class="navbar navbar-expand-lg">
-         <a class="nav-link" href="/movies/create">Add movie</a>
-      </nav> --}}
 
       <nav style="display:flex; justify-content:space-around">
          <a href="/">Home</a>
@@ -64,29 +58,6 @@
   </div>
 </nav>
 <nav>
-
-
-     <nav style="display:flex; justify-content:space-around">
-         <a href="/">Home</a>
-
-         {{#if loggedIn}}
-         <a href="/auth/profile">Profile</a>
-      <a href="/artists/create">Create a new Artist</a>
-      <a href="/artists">All the Artists</a>
-      <a href="/artwork/create">Add a new Artwork</a>
-      <a href="/artwork">All the Artwork</a></nav>
-
-         <form id="logout-form" action="/auth/logout" method="POST">
-            <button>Logout</button>
-         </form>
-
-         {{else}}
-         <a href="/auth/signup">Signup</a>
-         <a href="/auth/login">Login</a>
-         {{/if}}
-      </nav>
-
-
 
       {{{body}}}
 
