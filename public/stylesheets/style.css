@@ -1,12 +1,156 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 20px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00b7ff;
 }
 
-h1 {
+h2 {
+  text-align: center;
   color: 15px;
 }
+
+/* CSS for Signup form (beginning) */
+
+body {
+  padding: 50px;
+  font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif;
+}
+ 
+a {
+  color: #00b7ff;
+  text-decoration: none;
+  font-size: 1.5em;
+}
+ 
+
+form {
+  margin: 30px auto;
+  width: 380px;
+}
+ 
+form label {
+  color: #666;
+  display: inline-block;
+  margin-bottom: 10px;
+  text-align: center;
+  width: 100%;
+}
+form input,
+form button {
+  box-sizing: border-box;
+  font-size: 14px;
+  outline: 0;
+  padding: 4px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+ 
+form button {
+  background: #43a3e6;
+  border: 1px solid #43a3e6;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  padding: 8px 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: 0.3s ease background;
+  width: 100%;
+}
+ 
+form button:hover {
+  background: #fff;
+  color: #43a3e6;
+  transition: 0.3s ease background;
+}
+ 
+.error {
+  background: #f02b63;
+  box-sizing: border-box;
+  color: #fff;
+  margin: 20px auto;
+  padding: 20px;
+  width: 100%;
+}
+ul {
+  border-bottom: 2px solid #43a3e6;
+  height: 30px;
+  padding: 1em 0;
+  list-style-type: none;
+}
+ 
+ul li {
+  line-height: 20px;
+}
+ 
+#to-right {
+  padding: 1em;
+  float: right;
+}
+ 
+#to-right span {
+  color: #43a3e6;
+  font-size: 1.5em;
+}
+ 
+#form h2 {
+  display: flex;
+  justify-content: center;
+}
+ 
+#to-left {
+  float: left;
+}
+ 
+#to-left p a {
+  color: #000;
+  font-weight: bold;
+  font-size: 2em;
+}
+ 
+#logout-form {
+  display: inline;
+}
+ 
+#logout-form button {
+  width: 120px;
+}
+
+
+
+
+
+ /* Bootstrap */
+
+ /* 
+ {$prefix}dropdown-zindex: #{$zindex-dropdown};
+--#{$prefix}dropdown-min-width: #{$dropdown-min-width};
+--#{$prefix}dropdown-padding-x: #{$dropdown-padding-x};
+--#{$prefix}dropdown-padding-y: #{$dropdown-padding-y};
+--#{$prefix}dropdown-spacer: #{$dropdown-spacer};
+@include rfs($dropdown-font-size, --#{$prefix}dropdown-font-size);
+--#{$prefix}dropdown-color: #{$dropdown-color};
+--#{$prefix}dropdown-bg: #{$dropdown-bg};
+--#{$prefix}dropdown-border-color: #{$dropdown-border-color};
+--#{$prefix}dropdown-border-radius: #{$dropdown-border-radius};
+--#{$prefix}dropdown-border-width: #{$dropdown-border-width};
+--#{$prefix}dropdown-inner-border-radius: #{$dropdown-inner-border-radius};
+--#{$prefix}dropdown-divider-bg: #{$dropdown-divider-bg};
+--#{$prefix}dropdown-divider-margin-y: #{$dropdown-divider-margin-y};
+--#{$prefix}dropdown-box-shadow: #{$dropdown-box-shadow};
+--#{$prefix}dropdown-link-color: #{$dropdown-link-color};
+--#{$prefix}dropdown-link-hover-color: #{$dropdown-link-hover-color};
+--#{$prefix}dropdown-link-hover-bg: #{$dropdown-link-hover-bg};
+--#{$prefix}dropdown-link-active-color: #{$dropdown-link-active-color};
+--#{$prefix}dropdown-link-active-bg: #{$dropdown-link-active-bg};
+--#{$prefix}dropdown-link-disabled-color: #{$dropdown-link-disabled-color};
+--#{$prefix}dropdown-item-padding-x: #{$dropdown-item-padding-x};
+--#{$prefix}dropdown-item-padding-y: #{$dropdown-item-padding-y};
+--#{$prefix}dropdown-header-color: #{$dropdown-header-color};
+--#{$prefix}dropdown-header-padding-x: #{$dropdown-header-padding-x};
+--#{$prefix}dropdown-header-padding-y: #{$dropdown-header-padding-y}; */

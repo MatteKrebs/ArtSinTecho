@@ -5,28 +5,25 @@ const userSchema = new Schema({
     username: {
       type: String,
       trim: true,
-      required: true,
+      required: [true, 'Username is required.'],
       unique: true
-    },
-    city: {
-      type: String,
-      required: true,
-      trim: true
     },
     password: {
       type: String,
-      required: true
+      required: [true, 'Password is required.'],
     },
-    favourites: {
-      type: [String],
+    city: {
+      type: String,
+      required: false,
+      trim: true,
     },
     isAdmin: {
       type: Boolean,
       default: false
     },
-    pic: {
-      type: Image,
-      default: true
+    userPicture: {
+      type: String,
+      default: "public/images/vecteezy_user-profile-icon-profile-avatar-user-icon-male-icon_20911750_60.png"
     }
   })
 
