@@ -4,7 +4,7 @@ const router = express.Router();
 
 const Artist = require('../models/Artist.model');
 const Artwork = require('../models/Artwork.model');
-//const User = require('../models/User.model');
+const User = require('../models/User.model');
 
 const fileUploader = require('../config/cloudinary.config');
 
