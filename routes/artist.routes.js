@@ -132,7 +132,7 @@ router.get("/artists/:id", (req, res, next) => {
             res.render('artists/artist-details', {artist, isAdmin:req.session.currentUser.isAdmin});
         })
         .catch((error) => {
-            console.log("error fetching artwork", error);
+            console.log("error fetching artist", error);
             res.render('error');
             });
     }
@@ -144,7 +144,7 @@ router.get("/artists/:id", (req, res, next) => {
             res.render('artists/artist-details', {artist, loggedIn: true});
         })
         .catch((error) => {
-            console.log("error fetching artwork", error);
+            console.log("error fetching artist", error);
             res.render('error');
             });
     }
@@ -156,7 +156,7 @@ router.get("/artists/:id", (req, res, next) => {
             res.render('artists/artist-details', {artist});
         })
         .catch((error) => {
-            console.log("error fetching artwork", error);
+            console.log("error fetching artist", error);
             res.render('error');
             });
     }

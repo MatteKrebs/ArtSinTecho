@@ -3,7 +3,11 @@
 <br>
 <br>
 <br>
-    {{artist.pic}}
+    <img
+      src="{{artist.pic}}"
+      alt="Profile Picture"
+      id="avatar"
+    />
     <h5>Name: {{artist.name}}</h5>
     <br>
     City: {{artist.city}}
@@ -18,10 +22,10 @@
     <br> 
     <h5>Artwork from this Artist:</h5>
     <br>
+    {{artist.works.title}}
           {{#each artist.works}}
-            <p> {{title}}</p>
+            <p>{{title}}</p>
           {{/each}}
-
     <br>
 
 {{#if isAdmin}}

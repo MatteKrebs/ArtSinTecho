@@ -1,16 +1,19 @@
-
-<br>
+<div class = "artwork-page">
+    <br>
 {{#each artworks}}
     <br>
     <br>
     <br>
     <br>
     <br>
-    <img
+    <div class="artwork">
+        <div id="art-piece">
+      <img
       src="{{imageURL}}"
       alt="Piece of Art"
       id="art-piece"
-    />
+    /></div>
+  
     <h4>{{title}}</h4>
     <br>
     Story: {{story}}
@@ -20,7 +23,7 @@
     <br>
     <br>
     <br>
-    <h6>Artist:</h6>
+    <h6>Details of the artist that created this work:</h6>
     <br>
     <label>Name:</label>
         {{artist.name}}
@@ -32,7 +35,9 @@
         {{artist.description}}
         <br>
         <br>
-    <a href="/artwork/{{id}}">More Details</a>
-{{/each}}
 
+        {{#if isAdmin}}
+    <a href="/artwork/{{id}}">More Details</a>
+    {{/if}}
+{{/each}}
 
