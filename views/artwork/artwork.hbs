@@ -35,9 +35,9 @@
         {{artist.description}}
         <br>
         <br>
+
+        {{#if isAdmin}}
     <a href="/artwork/{{id}}">More Details</a>
+    {{/if}}
+{{/each}}
 
-</div>
-   {{/each}} 
-
-</div>
