@@ -13,7 +13,7 @@ const {isLoggedIn, isAdmin} = require('../middleware/route-guard')
 
 //Get: Create new artist
 router.get("/artists/create", isAdmin, (req, res, next) => {
-    res.render ('artists/artists-create', {isAdmin: true});
+    res.render ('artists/artists-create', {isAdmin: true, loggedIn: true});
 });
 
 //VIV POST REQUEST
@@ -111,7 +111,7 @@ router.get('/artists', (req,res) => {
 
     Artist.find()
         .then((artists)=>{
-            res.render('./artists/artists', {artists});
+            res.render('./artists/artists', {artists, loggedIn: true});
         })
         .catch(() => console.log("error fetching artists"))
 });
@@ -129,7 +129,7 @@ router.get("/artists/:id", (req, res, next) => {
         .populate("works")
         .then((artist) => {
             console.log(artist)
-            res.render('artists/artist-details', {artist, isAdmin:req.session.currentUser.isAdmin});
+            res.render('artists/artist-details', {artist, loggedIn: true, isAdmin:req.session.currentUser.isAdmin});
         })
         .catch((error) => {
             console.log("error fetching artist", error);
@@ -233,19 +233,19 @@ router.get('/artists/:id/edit', isAdmin, (req,res) => {
     const artistId = req.params.id;
 
     Artist.findById(artistId)
-        .then ((artist)=> {
+        .then (()=> {
             Artist.find()
                 .then((artists) => {
-                    res.render('./artists/artist-edit', {artists, isAdmin: true});
+                    res.render('./artists/artist-edit', {artists, loggedIn: true, isAdmin: true});
                 })
                 .catch((error) => {
                     console.log("error rendering artist", error);
-                    res.render('error', {isAdmin: true});
+                    res.render('error',  {isAdmin: true});
                 });
         })
         .catch ((error) => {
             console.log("error fetching artist", error);
-            res.render('error', {isAdmin: true});
+            res.render('error', {isAdmin: true, loggedIn: true});
         });
 });
 
@@ -260,7 +260,7 @@ router.post('/artists/:id', isAdmin, (req,res) => {
 
     Artwork.findByIdAndUpdate(artistId, {name, city, artType, description, pic, works})
         .then (()=> 
-            res.redirect(`/artists/${artistId}`))
+            res.redirect('/artists/edit'))
         .catch((error) => {
         console.log("error editing artists", error);
         res.render('error', {isAdmin: true});

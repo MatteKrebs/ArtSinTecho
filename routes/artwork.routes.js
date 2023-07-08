@@ -14,7 +14,7 @@ router.get("/artwork/create", isAdmin, (req, res, next) => {
 
     Artist.find()
         .then((artists) => {
-            res.render('artwork/artwork-create', {artists, isAdmin: true});
+            res.render('artwork/artwork-create', {artists, loggedIn: true, isAdmin: true});
             console.log(artists);
         })
         .catch((error) => {
@@ -86,7 +86,7 @@ router.get('/artwork', (req, res) => {
     Artwork.find()
         .populate('artist')
         .then((artworks)=>{
-            res.render('artwork/artwork', {artworks});
+            res.render('artwork/artwork', {artworks, loggedIn: true});
         })
         .catch(() => console.log("error fetching artworks"))
 });
@@ -105,7 +105,7 @@ router.get("/artwork/:id", (req, res, next) => {
             .populate("artist")
             .then((data) => {
                 console.log(data)
-                res.render('artwork/artwork-details', {data, isAdmin:req.session.currentUser.isAdmin});
+                res.render('artwork/artwork-details', {data, loggedIn: true, isAdmin:req.session.currentUser.isAdmin});
             })
             .catch((error) => {
             console.log("error fetching artwork", error);
@@ -175,8 +175,8 @@ router.get('/artwork/:id/edit', isAdmin, (req,res) => {
         .populate('artist')
         .then ((artwork)=> {
             Artist.find()
-                .then((artists) => {
-                    res.render('./artwork/artwork-edit', {artwork, artists, isAdmin: true});
+                .then((artwork) => {
+                    res.render('./artwork/artwork-edit', {artwork, artist, loggedIn: true, isAdmin: true});
                 })
                 .catch((error) => {
                     console.log("error rendering artwork", error);
